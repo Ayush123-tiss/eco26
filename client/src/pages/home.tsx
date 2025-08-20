@@ -45,12 +45,12 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center space-x-2">
             <Button
-              variant={activeSection === "community" ? "default" : "outline"}
+              variant="outline"
               size="sm"
               onClick={() => setActiveSection("community")}
               className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
                 activeSection === "community"
-                  ? "bg-eco-green-dark text-white hover:bg-eco-green-dark/90"
+                  ? "bg-white text-eco-blue border-eco-blue hover:bg-blue-50"
                   : "bg-white text-eco-gray-600 border-eco-gray-300 hover:bg-eco-gray-50"
               }`}
               data-testid="button-community"
@@ -58,12 +58,12 @@ export default function Home() {
               Community
             </Button>
             <Button
-              variant={activeSection === "blog" ? "default" : "outline"}
+              variant="outline"
               size="sm"
               onClick={() => setActiveSection("blog")}
               className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
                 activeSection === "blog"
-                  ? "bg-eco-green-light text-eco-gray-700 hover:bg-eco-green-light/90"
+                  ? "bg-white text-eco-blue border-eco-blue hover:bg-blue-50"
                   : "bg-white text-eco-gray-600 border-eco-gray-300 hover:bg-eco-gray-50"
               }`}
               data-testid="button-blog"
@@ -71,12 +71,12 @@ export default function Home() {
               Blog
             </Button>
             <Button
-              variant={activeSection === "news" ? "default" : "outline"}
+              variant="outline"
               size="sm"
               onClick={() => setActiveSection("news")}
               className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
                 activeSection === "news"
-                  ? "bg-eco-yellow text-eco-gray-700 hover:bg-yellow-300"
+                  ? "bg-white text-eco-blue border-eco-blue hover:bg-blue-50"
                   : "bg-white text-eco-gray-600 border-eco-gray-300 hover:bg-eco-gray-50"
               }`}
               data-testid="button-news"
