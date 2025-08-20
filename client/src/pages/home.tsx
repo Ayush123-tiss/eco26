@@ -96,6 +96,20 @@ export default function Home() {
               Create Community
             </Button>
           </div>
+          
+          {/* Sidebar Toggle */}
+          <div className="mt-3">
+            <Button
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              variant="outline"
+              size="sm"
+              className="px-4 py-2 border-black text-eco-gray-600 hover:bg-eco-gray-50 rounded-lg font-medium transition-all duration-200"
+              data-testid="button-sidebar-toggle-main"
+            >
+              <Menu className="h-4 w-4 mr-2" />
+              {sidebarCollapsed ? 'Show Sidebar' : 'Hide Sidebar'}
+            </Button>
+          </div>
         </div>
       </div>
 
