@@ -86,15 +86,19 @@ export default function Home() {
               </Button>
             </div>
             
-            {/* Create Post Button */}
-            <Button
-              onClick={() => setShowCreatePost(true)}
-              className="bg-eco-green text-white hover:bg-eco-green-dark px-6 py-2 rounded-lg font-medium"
-              data-testid="button-create-post-header"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Create Community
-            </Button>
+            <div className="flex-1"></div>
+            
+            {/* Create Post Button - Aligned with right sidebar */}
+            <div className="flex justify-center" style={{ width: '320px' }}>
+              <Button
+                onClick={() => setShowCreatePost(true)}
+                className="bg-eco-green text-white hover:bg-eco-green-dark px-6 py-2 rounded-lg font-medium"
+                data-testid="button-create-post-header"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Create Community
+              </Button>
+            </div>
           </div>
           
         </div>
