@@ -97,30 +97,25 @@ export default function Home() {
             </Button>
           </div>
           
-          {/* Sidebar Toggle */}
-          <div className="mt-3">
-            <Button
-              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              variant="outline"
-              size="sm"
-              className="px-4 py-2 border-black text-eco-gray-600 hover:bg-eco-gray-50 rounded-lg font-medium transition-all duration-200"
-              data-testid="button-sidebar-toggle-main"
-            >
-              <Menu className="h-4 w-4 mr-2" />
-              {sidebarCollapsed ? 'Show Sidebar' : 'Hide Sidebar'}
-            </Button>
-          </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div className="flex gap-6">
           {/* Left Sidebar */}
-          <LeftSidebar
-            collapsed={sidebarCollapsed}
-            onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
-            onCreatePost={() => setShowCreatePost(true)}
-          />
+          <div className="relative">
+            <LeftSidebar
+              collapsed={sidebarCollapsed}
+              onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+              onCreatePost={() => setShowCreatePost(true)}
+            />
+            {/* Resize Handle */}
+            {!sidebarCollapsed && (
+              <div className="absolute right-0 top-0 bottom-0 w-1 bg-eco-gray-200 hover:bg-eco-gray-300 cursor-col-resize transition-colors group">
+                <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1 h-12 bg-eco-gray-400 group-hover:bg-eco-gray-500 transition-colors"></div>
+              </div>
+            )}
+          </div>
 
           {/* Main Content */}
           <main className="flex-1 space-y-4">
