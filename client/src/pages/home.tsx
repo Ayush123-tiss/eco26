@@ -87,29 +87,43 @@ export default function Home() {
           
           {/* Action Buttons Row */}
           <div className="flex items-center justify-between mt-3">
-            <Button
-              onClick={() => setShowCreatePost(true)}
-              className="bg-eco-green text-white hover:bg-eco-green-dark px-6 py-2 rounded-lg font-medium"
-              data-testid="button-create-post-header"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Create Community
-            </Button>
+            <div className="flex-1"></div>
             
-            <Button
-              variant="outline"
-              className="px-6 py-2 border-black text-eco-gray-600 hover:bg-eco-gray-50 rounded-lg font-medium"
-              data-testid="button-search"
-            >
-              <Search className="h-4 w-4 mr-2" />
-              Search
-            </Button>
+            <div className="flex items-center space-x-3">
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-28 h-8" data-testid="select-sort-top">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="best">Best</SelectItem>
+                  <SelectItem value="new">New</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              <Button
+                variant="outline"
+                className="px-6 py-2 border-black text-eco-gray-600 hover:bg-eco-gray-50 rounded-lg font-medium"
+                data-testid="button-search"
+              >
+                <Search className="h-4 w-4 mr-2" />
+                Search
+              </Button>
+              
+              <Button
+                onClick={() => setShowCreatePost(true)}
+                className="bg-eco-green text-white hover:bg-eco-green-dark px-6 py-2 rounded-lg font-medium"
+                data-testid="button-create-post-header"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Create Community
+              </Button>
+            </div>
           </div>
           
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1">
         <div className="flex gap-6">
           {/* Left Sidebar */}
           <div className="relative">
@@ -128,31 +142,6 @@ export default function Home() {
 
           {/* Main Content */}
           <main className="flex-1 space-y-4">
-            {/* Simple Sort Controls */}
-            <div className="bg-white rounded-lg border border-eco-gray-200 p-3 flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-28 h-8" data-testid="select-sort">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="best">Best</SelectItem>
-                    <SelectItem value="new">New</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setViewMode("list")}
-                  className={viewMode === "list" ? "text-eco-green" : "text-eco-gray-500"}
-                  data-testid="button-list-view"
-                >
-                  <List className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
 
 
             {/* Thread List */}
