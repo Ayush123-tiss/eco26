@@ -85,19 +85,6 @@ export default function Home() {
               >
                 News
               </Button>
-              
-              {/* Filter */}
-              <div className="ml-6">
-                <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-28 h-8" data-testid="select-sort-top">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="best">Best</SelectItem>
-                    <SelectItem value="new">New</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
             </div>
             
             {/* Center Search */}
@@ -113,14 +100,26 @@ export default function Home() {
             </div>
             
             {/* Right Actions */}
-            <Button
-              onClick={() => setShowCreatePost(true)}
-              className="bg-eco-green text-white hover:bg-eco-green-dark px-6 py-2 rounded-lg font-medium"
-              data-testid="button-create-post-header"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Create Community
-            </Button>
+            <div className="flex items-center space-x-3">
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-28 h-8" data-testid="select-sort-top">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="best">Best</SelectItem>
+                  <SelectItem value="new">New</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              <Button
+                onClick={() => setShowCreatePost(true)}
+                className="bg-eco-green text-white hover:bg-eco-green-dark px-6 py-2 rounded-lg font-medium"
+                data-testid="button-create-post-header"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Create Community
+              </Button>
+            </div>
           </div>
           
         </div>
