@@ -43,45 +43,57 @@ export default function Home() {
       {/* Secondary Navigation */}
       <div className="bg-white border-b border-eco-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setActiveSection("community")}
+                className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  activeSection === "community"
+                    ? "bg-white text-eco-blue border-black hover:bg-blue-50"
+                    : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
+                }`}
+                data-testid="button-community"
+              >
+                Community
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setActiveSection("blog")}
+                className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  activeSection === "blog"
+                    ? "bg-white text-eco-blue border-black hover:bg-blue-50"
+                    : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
+                }`}
+                data-testid="button-blog"
+              >
+                Blog
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setActiveSection("news")}
+                className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  activeSection === "news"
+                    ? "bg-white text-eco-blue border-black hover:bg-blue-50"
+                    : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
+                }`}
+                data-testid="button-news"
+              >
+                News
+              </Button>
+            </div>
+            
+            {/* Create Post Button */}
             <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setActiveSection("community")}
-              className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
-                activeSection === "community"
-                  ? "bg-white text-eco-blue border-eco-blue hover:bg-blue-50"
-                  : "bg-white text-eco-gray-600 border-eco-gray-300 hover:bg-eco-gray-50"
-              }`}
-              data-testid="button-community"
+              onClick={() => setShowCreatePost(true)}
+              className="bg-eco-green text-white hover:bg-eco-green-dark px-6 py-2 rounded-lg font-medium"
+              data-testid="button-create-post-header"
             >
-              Community
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setActiveSection("blog")}
-              className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
-                activeSection === "blog"
-                  ? "bg-white text-eco-blue border-eco-blue hover:bg-blue-50"
-                  : "bg-white text-eco-gray-600 border-eco-gray-300 hover:bg-eco-gray-50"
-              }`}
-              data-testid="button-blog"
-            >
-              Blog
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setActiveSection("news")}
-              className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
-                activeSection === "news"
-                  ? "bg-white text-eco-blue border-eco-blue hover:bg-blue-50"
-                  : "bg-white text-eco-gray-600 border-eco-gray-300 hover:bg-eco-gray-50"
-              }`}
-              data-testid="button-news"
-            >
-              News
+              <Plus className="h-4 w-4 mr-2" />
+              Create Community
             </Button>
           </div>
         </div>
@@ -98,42 +110,20 @@ export default function Home() {
 
           {/* Main Content */}
           <main className="flex-1 space-y-4">
-            {/* Sort Controls */}
-            <div className="bg-white rounded-lg border border-eco-gray-200 p-4 flex items-center justify-between">
-              <div className="flex items-center space-x-4">
+            {/* Simple Sort Controls */}
+            <div className="bg-white rounded-lg border border-eco-gray-200 p-3 flex items-center justify-between">
+              <div className="flex items-center space-x-3">
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-32" data-testid="select-sort">
+                  <SelectTrigger className="w-28 h-8" data-testid="select-sort">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="best">Best</SelectItem>
-                    <SelectItem value="hot">Hot</SelectItem>
                     <SelectItem value="new">New</SelectItem>
-                    <SelectItem value="top">Top</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select value={timeFilter} onValueChange={setTimeFilter}>
-                  <SelectTrigger className="w-36" data-testid="select-time">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="today">Today</SelectItem>
-                    <SelectItem value="week">This Week</SelectItem>
-                    <SelectItem value="month">This Month</SelectItem>
-                    <SelectItem value="all">All Time</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="flex items-center space-x-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setViewMode("grid")}
-                  className={viewMode === "grid" ? "text-eco-green" : "text-eco-gray-500"}
-                  data-testid="button-grid-view"
-                >
-                  <Grid3X3 className="h-4 w-4" />
-                </Button>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -146,15 +136,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Create Post Button (Mobile) */}
-            <Button
-              onClick={() => setShowCreatePost(true)}
-              className="lg:hidden w-full bg-eco-green text-white hover:bg-eco-green-dark"
-              data-testid="button-create-post-mobile"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Create Community Post
-            </Button>
 
             {/* Thread List */}
             {isLoading ? (
