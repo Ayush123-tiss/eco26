@@ -6,6 +6,14 @@ interface HeaderProps {
   onTabChange: (tab: "people" | "products") => void;
 }
 
+function handleTabChange(tab: "people" | "products") {
+  if (tab === "people") {
+    window.location.href = "/";
+  } else {
+    window.location.href = "/products";
+  }
+}
+
 export default function Header({ activeTab, onTabChange }: HeaderProps) {
   return (
     <header className="bg-white border-b border-eco-gray-200 sticky top-0 z-50">
@@ -20,7 +28,7 @@ export default function Header({ activeTab, onTabChange }: HeaderProps) {
           {/* Center - Main Navigation Toggle */}
           <div className="flex items-center space-x-2">
             <Button
-              onClick={() => onTabChange("people")}
+              onClick={() => handleTabChange("people")}
               className={`px-8 py-3 rounded-full font-medium transition-all duration-200 ${
                 activeTab === "people"
                   ? "bg-eco-green text-white shadow-md hover:bg-eco-green-dark"
@@ -31,7 +39,7 @@ export default function Header({ activeTab, onTabChange }: HeaderProps) {
               Eco People
             </Button>
             <Button
-              onClick={() => onTabChange("products")}
+              onClick={() => handleTabChange("products")}
               className={`px-8 py-3 rounded-full font-medium transition-all duration-200 ${
                 activeTab === "products"
                   ? "bg-eco-blue text-white shadow-md hover:bg-blue-600"

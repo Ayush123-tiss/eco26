@@ -72,10 +72,35 @@ export const insertVoteSchema = createInsertSchema(votes).omit({
   id: true,
 });
 
+export const products = pgTable("products", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  description: text("description"),
+  price: integer("price").notNull(), // price in cents
+  originalPrice: integer("original_price"), // for discounts
+  category: text("category").notNull(),
+  subcategory: text("subcategory"),
+  imageUrl: text("image_url"),
+  ecoPoints: integer("eco_points").default(0),
+  ecoVerified: integer("eco_verified").default(0), // boolean as integer
+  inStock: integer("in_stock").default(1), // boolean as integer
+  stockCount: integer("stock_count").default(0),
+  rating: integer("rating").default(0), // 1-5 stars
+  reviewCount: integer("review_count").default(0),
+  brand: text("brand"),
+  tags: json("tags").$type<string[]>(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const insertCommentSchema = createInsertSchema(comments).omit({
   id: true,
   createdAt: true,
   voteCount: true,
+});
+
+export const insertProductSchema = createInsertSchema(products).omit({
+  id: true,
+  createdAt: true,
 });
 
 export type User = typeof users.$inferSelect;
@@ -88,3 +113,5 @@ export type Vote = typeof votes.$inferSelect;
 export type InsertVote = z.infer<typeof insertVoteSchema>;
 export type Comment = typeof comments.$inferSelect;
 export type InsertComment = z.infer<typeof insertCommentSchema>;
+export type Product = typeof products.$inferSelect;
+export type InsertProduct = z.infer<typeof insertProductSchema>;

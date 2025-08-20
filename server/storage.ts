@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type Community, type InsertCommunity, type Thread, type InsertThread, type Vote, type InsertVote, type Comment, type InsertComment } from "@shared/schema";
+import { type User, type InsertUser, type Community, type InsertCommunity, type Thread, type InsertThread, type Vote, type InsertVote, type Comment, type InsertComment, type Product, type InsertProduct } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -22,6 +22,10 @@ export interface IStorage {
   
   getComments(threadId: string): Promise<Comment[]>;
   createComment(comment: InsertComment): Promise<Comment>;
+  
+  getProducts(category?: string): Promise<Product[]>;
+  getProduct(id: string): Promise<Product | undefined>;
+  createProduct(product: InsertProduct): Promise<Product>;
 }
 
 export class MemStorage implements IStorage {
@@ -30,6 +34,7 @@ export class MemStorage implements IStorage {
   private threads: Map<string, Thread>;
   private votes: Map<string, Vote>;
   private comments: Map<string, Comment>;
+  private products: Map<string, Product>;
 
   constructor() {
     this.users = new Map();
@@ -37,6 +42,7 @@ export class MemStorage implements IStorage {
     this.threads = new Map();
     this.votes = new Map();
     this.comments = new Map();
+    this.products = new Map();
     
     this.seedData();
   }
@@ -174,6 +180,145 @@ export class MemStorage implements IStorage {
       const id = randomUUID();
       this.threads.set(id, { ...thread, id, createdAt: new Date() });
     });
+    
+    // Seed products
+    const productData: InsertProduct[] = [
+      {
+        name: "Bamboo Fiber Water Bottle",
+        description: "Eco-friendly reusable water bottle made from sustainable bamboo fiber. BPA-free and dishwasher safe.",
+        price: 2495, // $24.95
+        category: "Home",
+        subcategory: "Kitchen",
+        imageUrl: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500",
+        ecoPoints: 150,
+        ecoVerified: 1,
+        inStock: 1,
+        stockCount: 45,
+        rating: 5,
+        reviewCount: 128,
+        brand: "EcoLife",
+        tags: ["sustainable", "BPA-free", "bamboo"]
+      },
+      {
+        name: "Organic Cotton Reusable Bags Set",
+        description: "Set of 3 organic cotton mesh bags perfect for grocery shopping and storage.",
+        price: 1899, // $18.99
+        originalPrice: 2499,
+        category: "Home",
+        subcategory: "Storage",
+        imageUrl: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500",
+        ecoPoints: 120,
+        ecoVerified: 1,
+        inStock: 1,
+        stockCount: 32,
+        rating: 4,
+        reviewCount: 87,
+        brand: "GreenBag Co",
+        tags: ["organic", "cotton", "reusable"]
+      },
+      {
+        name: "Natural Bamboo Toothbrush",
+        description: "100% biodegradable bamboo toothbrush with soft bristles. Zero waste dental care.",
+        price: 895, // $8.95
+        category: "Beauty",
+        subcategory: "Oral Care",
+        imageUrl: "https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500",
+        ecoPoints: 75,
+        ecoVerified: 1,
+        inStock: 1,
+        stockCount: 156,
+        rating: 5,
+        reviewCount: 234,
+        brand: "BambooSmile",
+        tags: ["bamboo", "biodegradable", "zero-waste"]
+      },
+      {
+        name: "Organic Quinoa & Chia Superfood Mix",
+        description: "Premium organic quinoa and chia seed blend packed with protein and omega-3.",
+        price: 1599, // $15.99
+        category: "Food",
+        subcategory: "Superfoods",
+        imageUrl: "https://images.unsplash.com/photo-1586201375761-83865001e31c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500",
+        ecoPoints: 100,
+        ecoVerified: 1,
+        inStock: 1,
+        stockCount: 23,
+        rating: 4,
+        reviewCount: 67,
+        brand: "PureSeed",
+        tags: ["organic", "superfood", "protein"]
+      },
+      {
+        name: "Hemp Organic T-Shirt",
+        description: "Comfortable and durable t-shirt made from 100% organic hemp fiber. Naturally antimicrobial.",
+        price: 3995, // $39.95
+        category: "Clothing",
+        subcategory: "Shirts",
+        imageUrl: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500",
+        ecoPoints: 200,
+        ecoVerified: 1,
+        inStock: 1,
+        stockCount: 28,
+        rating: 4,
+        reviewCount: 45,
+        brand: "EcoThreads",
+        tags: ["hemp", "organic", "antimicrobial"]
+      },
+      {
+        name: "Solar Power Bank 20000mAh",
+        description: "High capacity solar power bank with dual USB ports. Perfect for outdoor adventures.",
+        price: 4599, // $45.99
+        originalPrice: 5999,
+        category: "Home",
+        subcategory: "Electronics",
+        imageUrl: "https://images.unsplash.com/photo-1609298882994-1e988cf4a7b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500",
+        ecoPoints: 250,
+        ecoVerified: 1,
+        inStock: 1,
+        stockCount: 15,
+        rating: 5,
+        reviewCount: 91,
+        brand: "SolarTech",
+        tags: ["solar", "renewable", "outdoor"]
+      },
+      {
+        name: "Organic Coconut Oil Face Cream",
+        description: "Nourishing face cream made with organic coconut oil and essential vitamins.",
+        price: 2299, // $22.99
+        category: "Beauty",
+        subcategory: "Skincare",
+        imageUrl: "https://images.unsplash.com/photo-1556228720-195a672e8a03?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500",
+        ecoPoints: 130,
+        ecoVerified: 1,
+        inStock: 1,
+        stockCount: 42,
+        rating: 5,
+        reviewCount: 156,
+        brand: "PureNature",
+        tags: ["organic", "coconut", "natural"]
+      },
+      {
+        name: "Recycled Aluminum Water Bottle",
+        description: "Lightweight and durable water bottle made from 100% recycled aluminum.",
+        price: 1995, // $19.95
+        category: "Home",
+        subcategory: "Kitchen",
+        imageUrl: "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500",
+        ecoPoints: 110,
+        ecoVerified: 1,
+        inStock: 1,
+        stockCount: 67,
+        rating: 4,
+        reviewCount: 73,
+        brand: "RecycleLife"
+        tags: ["recycled", "aluminum", "lightweight"]
+      }
+    ];
+    
+    productData.forEach(product => {
+      const id = randomUUID();
+      this.products.set(id, { ...product, id, createdAt: new Date() });
+    });
   }
 
   async getUser(id: string): Promise<User | undefined> {
@@ -288,6 +433,29 @@ export class MemStorage implements IStorage {
     };
     this.comments.set(id, comment);
     return comment;
+  }
+  
+  async getProducts(category?: string): Promise<Product[]> {
+    const products = Array.from(this.products.values());
+    if (category) {
+      return products.filter(product => product.category === category);
+    }
+    return products.sort((a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime());
+  }
+  
+  async getProduct(id: string): Promise<Product | undefined> {
+    return this.products.get(id);
+  }
+  
+  async createProduct(insertProduct: InsertProduct): Promise<Product> {
+    const id = randomUUID();
+    const product: Product = { 
+      ...insertProduct, 
+      id, 
+      createdAt: new Date()
+    };
+    this.products.set(id, product);
+    return product;
   }
 }
 
