@@ -7,7 +7,7 @@ import ThreadCard from "@/components/ThreadCard";
 import CreatePostDialog from "@/components/CreatePostDialog";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Grid3X3, List, Plus } from "lucide-react";
+import { Grid3X3, List, Plus, Menu } from "lucide-react";
 import type { Thread } from "@shared/schema";
 
 export default function Home() {
