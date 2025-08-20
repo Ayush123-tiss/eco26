@@ -7,7 +7,7 @@ import ThreadCard from "@/components/ThreadCard";
 import CreatePostDialog from "@/components/CreatePostDialog";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Grid3X3, List, Plus, Menu } from "lucide-react";
+import { Grid3X3, List, Plus, Menu, Search } from "lucide-react";
 import type { Thread } from "@shared/schema";
 
 export default function Home() {
@@ -43,62 +43,67 @@ export default function Home() {
       {/* Secondary Navigation */}
       <div className="bg-white border-b border-eco-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setActiveSection("community")}
-                className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
-                  activeSection === "community"
-                    ? "bg-white text-eco-blue border-black hover:bg-blue-50"
-                    : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
-                }`}
-                data-testid="button-community"
-              >
-                Community
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setActiveSection("blog")}
-                className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
-                  activeSection === "blog"
-                    ? "bg-white text-eco-blue border-black hover:bg-blue-50"
-                    : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
-                }`}
-                data-testid="button-blog"
-              >
-                Blog
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setActiveSection("news")}
-                className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
-                  activeSection === "news"
-                    ? "bg-white text-eco-blue border-black hover:bg-blue-50"
-                    : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
-                }`}
-                data-testid="button-news"
-              >
-                News
-              </Button>
-            </div>
+          <div className="flex items-center space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setActiveSection("community")}
+              className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
+                activeSection === "community"
+                  ? "bg-white text-eco-blue border-black hover:bg-blue-50"
+                  : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
+              }`}
+              data-testid="button-community"
+            >
+              Community
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setActiveSection("blog")}
+              className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
+                activeSection === "blog"
+                  ? "bg-white text-eco-blue border-black hover:bg-blue-50"
+                  : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
+              }`}
+              data-testid="button-blog"
+            >
+              Blog
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setActiveSection("news")}
+              className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
+                activeSection === "news"
+                  ? "bg-white text-eco-blue border-black hover:bg-blue-50"
+                  : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
+              }`}
+              data-testid="button-news"
+            >
+              News
+            </Button>
+          </div>
+          
+          {/* Action Buttons Row */}
+          <div className="flex items-center justify-between mt-3">
+            <Button
+              onClick={() => setShowCreatePost(true)}
+              className="bg-eco-green text-white hover:bg-eco-green-dark px-6 py-2 rounded-lg font-medium"
+              data-testid="button-create-post-header"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Create Community
+            </Button>
             
-            <div className="flex-1"></div>
-            
-            {/* Create Post Button - Aligned with right sidebar */}
-            <div className="flex justify-center" style={{ width: '320px' }}>
-              <Button
-                onClick={() => setShowCreatePost(true)}
-                className="bg-eco-green text-white hover:bg-eco-green-dark px-6 py-2 rounded-lg font-medium"
-                data-testid="button-create-post-header"
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                Create Community
-              </Button>
-            </div>
+            <Button
+              variant="outline"
+              className="px-6 py-2 border-black text-eco-gray-600 hover:bg-eco-gray-50 rounded-lg font-medium"
+              data-testid="button-search"
+            >
+              <Search className="h-4 w-4 mr-2" />
+              Search
+            </Button>
           </div>
           
         </div>
