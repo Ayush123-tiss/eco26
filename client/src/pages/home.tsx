@@ -42,7 +42,7 @@ export default function Home() {
 
       {/* Secondary Navigation */}
       <div className="bg-white border-b border-eco-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="w-full px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Button
