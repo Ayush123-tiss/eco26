@@ -43,51 +43,48 @@ export default function Home() {
       {/* Secondary Navigation */}
       <div className="bg-white border-b border-eco-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setActiveSection("community")}
-              className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
-                activeSection === "community"
-                  ? "bg-white text-eco-blue border-black hover:bg-blue-50"
-                  : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
-              }`}
-              data-testid="button-community"
-            >
-              Community
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setActiveSection("blog")}
-              className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
-                activeSection === "blog"
-                  ? "bg-white text-eco-blue border-black hover:bg-blue-50"
-                  : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
-              }`}
-              data-testid="button-blog"
-            >
-              Blog
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setActiveSection("news")}
-              className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
-                activeSection === "news"
-                  ? "bg-white text-eco-blue border-black hover:bg-blue-50"
-                  : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
-              }`}
-              data-testid="button-news"
-            >
-              News
-            </Button>
-          </div>
-          
-          {/* Action Buttons Row */}
-          <div className="flex items-center justify-between mt-3">
-            <div className="flex-1"></div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setActiveSection("community")}
+                className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  activeSection === "community"
+                    ? "bg-white text-eco-blue border-black hover:bg-blue-50"
+                    : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
+                }`}
+                data-testid="button-community"
+              >
+                Community
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setActiveSection("blog")}
+                className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  activeSection === "blog"
+                    ? "bg-white text-eco-blue border-black hover:bg-blue-50"
+                    : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
+                }`}
+                data-testid="button-blog"
+              >
+                Blog
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setActiveSection("news")}
+                className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  activeSection === "news"
+                    ? "bg-white text-eco-blue border-black hover:bg-blue-50"
+                    : "bg-white text-eco-gray-600 border-black hover:bg-eco-gray-50"
+                }`}
+                data-testid="button-news"
+              >
+                News
+              </Button>
+            </div>
             
             <div className="flex items-center space-x-3">
               <Select value={sortBy} onValueChange={setSortBy}>
