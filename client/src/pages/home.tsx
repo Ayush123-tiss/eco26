@@ -39,6 +39,7 @@ export default function Home() {
         activeTab={activeTab}
         onTabChange={setActiveTab}
       />
+
       {/* Secondary Navigation */}
       <div className="bg-white border-b border-eco-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -47,7 +48,11 @@ export default function Home() {
               variant={activeSection === "community" ? "default" : "outline"}
               size="sm"
               onClick={() => setActiveSection("community")}
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-9 px-6 py-2 rounded-lg font-medium transition-all duration-200 bg-eco-green-dark hover:bg-eco-green-dark/90 text-[#e4e5e6]"
+              className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
+                activeSection === "community"
+                  ? "bg-eco-green-dark text-white hover:bg-eco-green-dark/90"
+                  : "bg-white text-eco-gray-600 border-eco-gray-300 hover:bg-eco-gray-50"
+              }`}
               data-testid="button-community"
             >
               Community
@@ -81,6 +86,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex gap-6">
           {/* Left Sidebar */}
@@ -201,6 +207,7 @@ export default function Home() {
           <RightSidebar communities={communities} />
         </div>
       </div>
+
       {/* Create Post Dialog */}
       <CreatePostDialog
         open={showCreatePost}
