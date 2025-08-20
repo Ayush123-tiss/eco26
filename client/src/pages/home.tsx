@@ -8,6 +8,7 @@ import CreatePostDialog from "@/components/CreatePostDialog";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Grid3X3, List, Plus, Menu, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import type { Thread } from "@shared/schema";
 
 export default function Home() {
@@ -84,37 +85,42 @@ export default function Home() {
               >
                 News
               </Button>
+              
+              {/* Filter */}
+              <div className="ml-6">
+                <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger className="w-28 h-8" data-testid="select-sort-top">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="best">Best</SelectItem>
+                    <SelectItem value="new">New</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
             
-            <div className="flex items-center space-x-3">
-              <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-28 h-8" data-testid="select-sort-top">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="best">Best</SelectItem>
-                  <SelectItem value="new">New</SelectItem>
-                </SelectContent>
-              </Select>
-              
-              <Button
-                variant="outline"
-                className="px-6 py-2 border-black text-eco-gray-600 hover:bg-eco-gray-50 rounded-lg font-medium"
-                data-testid="button-search"
-              >
-                <Search className="h-4 w-4 mr-2" />
-                Search
-              </Button>
-              
-              <Button
-                onClick={() => setShowCreatePost(true)}
-                className="bg-eco-green text-white hover:bg-eco-green-dark px-6 py-2 rounded-lg font-medium"
-                data-testid="button-create-post-header"
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                Create Community
-              </Button>
+            {/* Center Search */}
+            <div className="flex-1 max-w-2xl mx-8">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-eco-gray-400" />
+                <Input
+                  placeholder="Search EcoBingle for communities, posts, and more..."
+                  className="pl-10 pr-4 py-3 w-full border-eco-gray-300 rounded-lg text-sm focus:border-eco-green focus:ring-eco-green"
+                  data-testid="input-search"
+                />
+              </div>
             </div>
+            
+            {/* Right Actions */}
+            <Button
+              onClick={() => setShowCreatePost(true)}
+              className="bg-eco-green text-white hover:bg-eco-green-dark px-6 py-2 rounded-lg font-medium"
+              data-testid="button-create-post-header"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Create Community
+            </Button>
           </div>
           
         </div>
