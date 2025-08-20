@@ -120,10 +120,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex gap-6">
+      <div className="w-full px-4">
+        <div className="flex">
           {/* Left Sidebar */}
-          <div className="relative">
+          <div className="relative flex-shrink-0">
             <LeftSidebar
               collapsed={sidebarCollapsed}
               onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
@@ -137,8 +137,8 @@ export default function Home() {
             )}
           </div>
 
-          {/* Main Content */}
-          <main className="flex-1 space-y-4">
+          {/* Main Content - Expanded */}
+          <main className="flex-1 max-w-4xl mx-auto px-6 space-y-4">
 
 
             {/* Thread List */}
@@ -189,7 +189,9 @@ export default function Home() {
           </main>
 
           {/* Right Sidebar */}
-          <RightSidebar communities={communities} />
+          <div className="flex-shrink-0">
+            <RightSidebar communities={communities} />
+          </div>
         </div>
       </div>
 
