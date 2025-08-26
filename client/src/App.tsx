@@ -1,29 +1,31 @@
-import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import Home from "@/pages/home";
-import Products from "@/pages/products";
-import NotFound from "@/pages/not-found";
-
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/products" component={Products} />
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
+import { queryClient } from '@/shared/services/query-client';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from '@/shared/components/ui/toaster';
+import { TooltipProvider } from '@/shared/components/ui/tooltip';
+import { AppRouter } from '@/app/router';
+import { RouteMonitor } from '@/shared/components/route-monitor';
+import { ThemeProvider } from '@/shared/context/theme-context';
+import { PWAInstallBanner } from '@/components/pwa/pwa-install-banner';
+import { ServiceWorkerUpdateBanner } from '@/components/pwa/service-worker-update-banner';
+import { ContentProvider } from './contexts/ContentContext';
+import { ProductProvider } from './contexts/ProductContext';
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
+      <ThemeProvider>
+        <ContentProvider>
+          <ProductProvider>
+            <TooltipProvider>
+              <Toaster />
+              <PWAInstallBanner showMinimized />
+              <ServiceWorkerUpdateBanner />
+              <AppRouter />
+              <RouteMonitor />
+            </TooltipProvider>
+          </ProductProvider>
+        </ContentProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

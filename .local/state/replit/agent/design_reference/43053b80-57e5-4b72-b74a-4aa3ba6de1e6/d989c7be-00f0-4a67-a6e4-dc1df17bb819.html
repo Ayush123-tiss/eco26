@@ -1,0 +1,616 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoBingle - Eco People Community</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'eco-green': '#10B981',
+                        'eco-light': '#34D399',
+                        'eco-blue': '#3B82F6',
+                        'eco-yellow': '#FEF3C7',
+                        'eco-dark': '#064E3B',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-transition {
+            transition: all 0.3s ease-in-out;
+        }
+        .vote-btn:hover {
+            transform: scale(1.05);
+        }
+        .thread-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="font-inter bg-gray-50 text-gray-700">
+    <!-- @COMPONENT: Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <i class="fas fa-leaf text-eco-green text-2xl mr-2"></i>
+                    <span class="text-2xl font-bold text-gray-800">EcoBingle</span>
+                </div>
+
+                <!-- Main Navigation Toggle -->
+                <div class="flex items-center space-x-2">
+                    <button data-bind="activeTab === 'people'" class="px-8 py-3 rounded-full font-medium transition-all duration-200 bg-eco-green text-white shadow-md hover:bg-eco-dark">
+                        Eco People
+                    </button>
+                    <button data-bind="activeTab === 'products'" class="px-8 py-3 rounded-full font-medium transition-all duration-200 bg-white text-gray-600 border border-gray-300 hover:bg-gray-50">
+                        Eco Products
+                    </button>
+                </div>
+
+                <!-- Sign In -->
+                <button class="px-6 py-2 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                    Sign In
+                </button>
+            </div>
+        </div>
+    </header>
+    <!-- @END_COMPONENT: Header -->
+
+    <!-- @COMPONENT: SecondaryNavigation -->
+    <div class="bg-white border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center space-x-2">
+                <button data-bind="activeSection === 'community'" class="px-6 py-2 rounded-lg font-medium transition-all duration-200 bg-eco-dark text-white">
+                    Community
+                </button>
+                <button data-bind="activeSection === 'blog'" class="px-6 py-2 rounded-lg font-medium transition-all duration-200 bg-eco-light text-gray-700 hover:bg-eco-green hover:text-white">
+                    Blog
+                </button>
+                <button data-bind="activeSection === 'news'" class="px-6 py-2 rounded-lg font-medium transition-all duration-200 bg-eco-yellow text-gray-700 hover:bg-yellow-300">
+                    News
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: SecondaryNavigation -->
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex gap-6">
+            <!-- @COMPONENT: LeftSidebar -->
+            <aside id="leftSidebar" class="w-80 space-y-6 sidebar-transition">
+                <!-- Sidebar Toggle -->
+                <button id="sidebarToggle" class="lg:hidden mb-4 p-2 bg-white rounded-lg border border-gray-200 hover:bg-gray-50">
+                    <i class="fas fa-bars text-gray-600"></i>
+                </button>
+
+                <!-- Create Post Button -->
+                <button class="w-full bg-eco-green text-white py-3 px-4 rounded-lg font-medium hover:bg-eco-dark transition-colors">
+                    <i class="fas fa-plus mr-2"></i>
+                    Create Community Post
+                </button>
+
+                <!-- Eco Topics -->
+                <div class="bg-white rounded-lg border border-gray-200 p-4">
+                    <div class="flex items-center justify-between mb-3 cursor-pointer" onclick="toggleSection('ecoTopics')">
+                        <h3 class="font-semibold text-gray-800">ECO TOPICS</h3>
+                        <i id="ecoTopicsIcon" class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                    </div>
+                    <div id="ecoTopicsContent" class="space-y-2">
+                        <a href="#" class="flex items-center text-sm text-gray-600 hover:text-eco-green py-1">
+                            <i class="fas fa-seedling mr-2 text-eco-green"></i>
+                            Sustainability
+                        </a>
+                        <a href="#" class="flex items-center text-sm text-gray-600 hover:text-eco-green py-1">
+                            <i class="fas fa-solar-panel mr-2 text-eco-green"></i>
+                            Green Tech
+                        </a>
+                        <a href="#" class="flex items-center text-sm text-gray-600 hover:text-eco-green py-1">
+                            <i class="fas fa-globe-americas mr-2 text-eco-green"></i>
+                            Climate Action
+                        </a>
+                        <a href="#" class="flex items-center text-sm text-gray-600 hover:text-eco-green py-1">
+                            <i class="fas fa-recycle mr-2 text-eco-green"></i>
+                            Waste Reduction
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Joined Communities -->
+                <div class="bg-white rounded-lg border border-gray-200 p-4">
+                    <div class="flex items-center justify-between mb-3 cursor-pointer" onclick="toggleSection('joinedCommunities')">
+                        <h3 class="font-semibold text-gray-800">JOINED COMMUNITIES</h3>
+                        <i id="joinedCommunitiesIcon" class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                    </div>
+                    <div id="joinedCommunitiesContent" class="space-y-2">
+                        <a href="#" class="flex items-center text-sm text-gray-600 hover:text-eco-green py-1">
+                            <div class="w-4 h-4 bg-eco-green rounded-full mr-2"></div>
+                            r/ZeroWaste
+                        </a>
+                        <a href="#" class="flex items-center text-sm text-gray-600 hover:text-eco-green py-1">
+                            <div class="w-4 h-4 bg-eco-light rounded-full mr-2"></div>
+                            r/SolarPower
+                        </a>
+                        <a href="#" class="flex items-center text-sm text-gray-600 hover:text-eco-green py-1">
+                            <div class="w-4 h-4 bg-green-400 rounded-full mr-2"></div>
+                            r/UrbanGardening
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Green Marketplace -->
+                <div class="bg-white rounded-lg border border-gray-200 p-4">
+                    <div class="flex items-center justify-between mb-3 cursor-pointer" onclick="toggleSection('marketplace')">
+                        <h3 class="font-semibold text-gray-800">GREEN MARKETPLACE</h3>
+                        <i id="marketplaceIcon" class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                    </div>
+                    <div id="marketplaceContent" class="space-y-2">
+                        <a href="#" class="flex items-center text-sm text-gray-600 hover:text-eco-green py-1">
+                            <i class="fas fa-shopping-cart mr-2 text-eco-green"></i>
+                            Eco Products
+                        </a>
+                        <a href="#" class="flex items-center text-sm text-gray-600 hover:text-eco-green py-1">
+                            <i class="fas fa-star mr-2 text-eco-green"></i>
+                            Recommendations
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Eco Learning -->
+                <div class="bg-white rounded-lg border border-gray-200 p-4">
+                    <div class="flex items-center justify-between mb-3 cursor-pointer" onclick="toggleSection('learning')">
+                        <h3 class="font-semibold text-gray-800">ECO LEARNING</h3>
+                        <i id="learningIcon" class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                    </div>
+                    <div id="learningContent" class="space-y-2">
+                        <a href="#" class="flex items-center text-sm text-gray-600 hover:text-eco-green py-1">
+                            <i class="fas fa-book mr-2 text-eco-green"></i>
+                            How-to Guides
+                        </a>
+                        <a href="#" class="flex items-center text-sm text-gray-600 hover:text-eco-green py-1">
+                            <i class="fas fa-graduation-cap mr-2 text-eco-green"></i>
+                            Sustainability Courses
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Get Certificate -->
+                <div class="bg-white rounded-lg border border-gray-200 p-4">
+                    <div class="flex items-center justify-between mb-3 cursor-pointer" onclick="toggleSection('certificate')">
+                        <h3 class="font-semibold text-gray-800">GET CERTIFICATE</h3>
+                        <i id="certificateIcon" class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                    </div>
+                    <div id="certificateContent" class="space-y-2">
+                        <a href="#" class="flex items-center text-sm text-gray-600 hover:text-eco-green py-1">
+                            <i class="fas fa-certificate mr-2 text-eco-green"></i>
+                            Eco Certification
+                        </a>
+                        <a href="#" class="flex items-center text-sm text-gray-600 hover:text-eco-green py-1">
+                            <i class="fas fa-trophy mr-2 text-eco-green"></i>
+                            Achievement Badges
+                        </a>
+                    </div>
+                </div>
+            </aside>
+            <!-- @END_COMPONENT: LeftSidebar -->
+
+            <!-- @COMPONENT: MainContent -->
+            <main class="flex-1 space-y-4">
+                <!-- Sort Controls -->
+                <div class="bg-white rounded-lg border border-gray-200 p-4 flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-eco-green focus:border-eco-green">
+                            <option>Best</option>
+                            <option>Hot</option>
+                            <option>New</option>
+                            <option>Top</option>
+                        </select>
+                        <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-eco-green focus:border-eco-green">
+                            <option>Today</option>
+                            <option>This Week</option>
+                            <option>This Month</option>
+                            <option>All Time</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="p-2 text-gray-500 hover:text-eco-green">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="p-2 text-gray-500 hover:text-eco-green">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- @MAP: discussionThreads.map(thread => ( -->
+                <!-- Discussion Thread 1 -->
+                <article class="bg-white rounded-lg border border-gray-200 hover:border-eco-light transition-all duration-200 thread-card" data-mock="true">
+                    <div class="flex">
+                        <!-- Voting Section -->
+                        <div class="flex flex-col items-center p-4 border-r border-gray-100">
+                            <button class="vote-btn p-2 text-gray-400 hover:text-eco-green hover:bg-eco-green hover:bg-opacity-10 rounded transition-all" data-event="click:upvote" data-implementation="Should update vote count and user vote state">
+                                <i class="fas fa-chevron-up"></i>
+                            </button>
+                            <span class="font-medium text-gray-700 my-1" data-bind="thread.voteCount">127</span>
+                            <button class="vote-btn p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition-all" data-event="click:downvote" data-implementation="Should update vote count and user vote state">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+
+                        <!-- Content Section -->
+                        <div class="flex-1 p-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-xs text-gray-500">Posted by</span>
+                                <a href="#" class="text-xs font-medium text-eco-green hover:underline" data-bind="thread.author">u/EcoWarrior2023</a>
+                                <span class="text-xs text-gray-500" data-bind="thread.timestamp">4 hours ago</span>
+                                <span class="px-2 py-1 bg-eco-green bg-opacity-10 text-eco-green text-xs rounded-full">Climate Action</span>
+                            </div>
+
+                            <h2 class="text-lg font-semibold text-gray-800 mb-2 hover:text-eco-green cursor-pointer" data-bind="thread.title" data-event="click:expandThread">
+                                How solar panels changed my carbon footprint - 6 month update with real data
+                            </h2>
+
+                            <p class="text-gray-600 text-sm mb-3" data-bind="thread.preview">
+                                I installed solar panels 6 months ago and wanted to share the real numbers with the community. The results were better than expected...
+                            </p>
+
+                            <!-- A solar panel installation on a modern house roof during golden hour -->
+                            <img src="https://images.unsplash.com/photo-1559302504-64aae6ca6b6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Solar panels on house roof" class="w-full h-48 object-cover rounded-lg mb-3" />
+
+                            <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                <button class="flex items-center space-x-1 hover:text-eco-green transition-colors" data-event="click:toggleComments">
+                                    <i class="far fa-comment"></i>
+                                    <span data-bind="thread.commentCount">43 comments</span>
+                                </button>
+                                <button class="flex items-center space-x-1 hover:text-eco-green transition-colors">
+                                    <i class="far fa-share-square"></i>
+                                    <span>Share</span>
+                                </button>
+                                <button class="flex items-center space-x-1 hover:text-eco-green transition-colors">
+                                    <i class="far fa-bookmark"></i>
+                                    <span>Save</span>
+                                </button>
+                                <button class="flex items-center space-x-1 hover:text-eco-green transition-colors">
+                                    <i class="fas fa-award"></i>
+                                    <span>Award</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Discussion Thread 2 -->
+                <article class="bg-white rounded-lg border border-gray-200 hover:border-eco-light transition-all duration-200 thread-card" data-mock="true">
+                    <div class="flex">
+                        <div class="flex flex-col items-center p-4 border-r border-gray-100">
+                            <button class="vote-btn p-2 text-gray-400 hover:text-eco-green hover:bg-eco-green hover:bg-opacity-10 rounded transition-all">
+                                <i class="fas fa-chevron-up"></i>
+                            </button>
+                            <span class="font-medium text-gray-700 my-1" data-bind="thread.voteCount">89</span>
+                            <button class="vote-btn p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition-all">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex-1 p-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-xs text-gray-500">Posted by</span>
+                                <a href="#" class="text-xs font-medium text-eco-green hover:underline" data-bind="thread.author">u/GreenGardener</a>
+                                <span class="text-xs text-gray-500" data-bind="thread.timestamp">7 hours ago</span>
+                                <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">Urban Gardening</span>
+                            </div>
+
+                            <h2 class="text-lg font-semibold text-gray-800 mb-2 hover:text-eco-green cursor-pointer" data-bind="thread.title">
+                                Started a vertical garden in my apartment - here's what I learned
+                            </h2>
+
+                            <p class="text-gray-600 text-sm mb-3" data-bind="thread.preview">
+                                Living in the city doesn't mean you can't grow your own food! Here are some tips for starting a vertical garden in small spaces...
+                            </p>
+
+                            <!-- A lush vertical garden with various herbs and vegetables growing on a balcony -->
+                            <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Vertical garden with herbs and vegetables" class="w-full h-48 object-cover rounded-lg mb-3" />
+
+                            <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                <button class="flex items-center space-x-1 hover:text-eco-green transition-colors">
+                                    <i class="far fa-comment"></i>
+                                    <span data-bind="thread.commentCount">27 comments</span>
+                                </button>
+                                <button class="flex items-center space-x-1 hover:text-eco-green transition-colors">
+                                    <i class="far fa-share-square"></i>
+                                    <span>Share</span>
+                                </button>
+                                <button class="flex items-center space-x-1 hover:text-eco-green transition-colors">
+                                    <i class="far fa-bookmark"></i>
+                                    <span>Save</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Discussion Thread 3 -->
+                <article class="bg-white rounded-lg border border-gray-200 hover:border-eco-light transition-all duration-200 thread-card" data-mock="true">
+                    <div class="flex">
+                        <div class="flex flex-col items-center p-4 border-r border-gray-100">
+                            <button class="vote-btn p-2 text-gray-400 hover:text-eco-green hover:bg-eco-green hover:bg-opacity-10 rounded transition-all">
+                                <i class="fas fa-chevron-up"></i>
+                            </button>
+                            <span class="font-medium text-gray-700 my-1" data-bind="thread.voteCount">156</span>
+                            <button class="vote-btn p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition-all">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex-1 p-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-xs text-gray-500">Posted by</span>
+                                <a href="#" class="text-xs font-medium text-eco-green hover:underline" data-bind="thread.author">u/ZeroWasteLife</a>
+                                <span class="text-xs text-gray-500" data-bind="thread.timestamp">12 hours ago</span>
+                                <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">Waste Reduction</span>
+                            </div>
+
+                            <h2 class="text-lg font-semibold text-gray-800 mb-2 hover:text-eco-green cursor-pointer" data-bind="thread.title">
+                                Complete guide to zero waste grocery shopping + free printable checklist
+                            </h2>
+
+                            <p class="text-gray-600 text-sm mb-3" data-bind="thread.preview">
+                                After 2 years of zero waste shopping, I've created the ultimate guide to help others make the transition. Includes a free printable checklist!
+                            </p>
+
+                            <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                <button class="flex items-center space-x-1 hover:text-eco-green transition-colors">
+                                    <i class="far fa-comment"></i>
+                                    <span data-bind="thread.commentCount">72 comments</span>
+                                </button>
+                                <button class="flex items-center space-x-1 hover:text-eco-green transition-colors">
+                                    <i class="far fa-share-square"></i>
+                                    <span>Share</span>
+                                </button>
+                                <button class="flex items-center space-x-1 hover:text-eco-green transition-colors">
+                                    <i class="far fa-bookmark"></i>
+                                    <span>Save</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Discussion Thread 4 -->
+                <article class="bg-white rounded-lg border border-gray-200 hover:border-eco-light transition-all duration-200 thread-card" data-mock="true">
+                    <div class="flex">
+                        <div class="flex flex-col items-center p-4 border-r border-gray-100">
+                            <button class="vote-btn p-2 text-gray-400 hover:text-eco-green hover:bg-eco-green hover:bg-opacity-10 rounded transition-all">
+                                <i class="fas fa-chevron-up"></i>
+                            </button>
+                            <span class="font-medium text-gray-700 my-1" data-bind="thread.voteCount">203</span>
+                            <button class="vote-btn p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition-all">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex-1 p-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-xs text-gray-500">Posted by</span>
+                                <a href="#" class="text-xs font-medium text-eco-green hover:underline" data-bind="thread.author">u/ElectricDrive</a>
+                                <span class="text-xs text-gray-500" data-bind="thread.timestamp">1 day ago</span>
+                                <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">Green Tech</span>
+                            </div>
+
+                            <h2 class="text-lg font-semibold text-gray-800 mb-2 hover:text-eco-green cursor-pointer" data-bind="thread.title">
+                                Electric vehicle vs hybrid: Real-world comparison after 50,000 miles
+                            </h2>
+
+                            <p class="text-gray-600 text-sm mb-3" data-bind="thread.preview">
+                                I've been driving both an EV and hybrid for work. Here's the real comparison including costs, maintenance, and environmental impact...
+                            </p>
+
+                            <!-- An electric car charging at a modern charging station with solar panels in the background -->
+                            <img src="https://pixabay.com/get/g9a12e2d45d5fdb39979cf293bb1d22127370edbdf511fac4ce434e94405786633a3b5c25914eab78b106a9085dbc65c3b80cd71bff20de3e2802e7056ee2b04a_1280.jpg" alt="Electric car charging at station" class="w-full h-48 object-cover rounded-lg mb-3" />
+
+                            <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                <button class="flex items-center space-x-1 hover:text-eco-green transition-colors">
+                                    <i class="far fa-comment"></i>
+                                    <span data-bind="thread.commentCount">98 comments</span>
+                                </button>
+                                <button class="flex items-center space-x-1 hover:text-eco-green transition-colors">
+                                    <i class="far fa-share-square"></i>
+                                    <span>Share</span>
+                                </button>
+                                <button class="flex items-center space-x-1 hover:text-eco-green transition-colors">
+                                    <i class="far fa-bookmark"></i>
+                                    <span>Save</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <!-- @END_MAP -->
+
+                <!-- Load More Button -->
+                <div class="text-center py-8">
+                    <button class="px-8 py-3 bg-eco-green text-white rounded-lg font-medium hover:bg-eco-dark transition-colors">
+                        Load More Posts
+                    </button>
+                </div>
+            </main>
+            <!-- @END_COMPONENT: MainContent -->
+
+            <!-- @COMPONENT: RightSidebar -->
+            <aside class="w-80 space-y-6">
+                <!-- Popular Communities -->
+                <div class="bg-white rounded-lg border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-800 mb-4">Popular Communities</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-8 h-8 bg-eco-green rounded-full flex items-center justify-center">
+                                    <i class="fas fa-seedling text-white text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-sm text-gray-800" data-bind="community.name">r/sustainability</p>
+                                    <p class="text-xs text-gray-500" data-bind="community.members">1.2M members</p>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1 bg-eco-green text-white text-xs rounded-full hover:bg-eco-dark transition-colors">
+                                Join
+                            </button>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-8 h-8 bg-eco-light rounded-full flex items-center justify-center">
+                                    <i class="fas fa-solar-panel text-white text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-sm text-gray-800" data-bind="community.name">r/renewableenergy</p>
+                                    <p class="text-xs text-gray-500" data-bind="community.members">875K members</p>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1 bg-eco-green text-white text-xs rounded-full hover:bg-eco-dark transition-colors">
+                                Join
+                            </button>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-recycle text-white text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-sm text-gray-800" data-bind="community.name">r/zerowaste</p>
+                                    <p class="text-xs text-gray-500" data-bind="community.members">650K members</p>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1 bg-eco-green text-white text-xs rounded-full hover:bg-eco-dark transition-colors">
+                                Join
+                            </button>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-car-battery text-white text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-sm text-gray-800" data-bind="community.name">r/electricvehicles</p>
+                                    <p class="text-xs text-gray-500" data-bind="community.members">520K members</p>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1 bg-eco-green text-white text-xs rounded-full hover:bg-eco-dark transition-colors">
+                                Join
+                            </button>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-leaf text-white text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-sm text-gray-800" data-bind="community.name">r/gardening</p>
+                                    <p class="text-xs text-gray-500" data-bind="community.members">2.8M members</p>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1 bg-eco-green text-white text-xs rounded-full hover:bg-eco-dark transition-colors">
+                                Join
+                            </button>
+                        </div>
+                    </div>
+                    <button class="w-full mt-4 text-sm text-eco-green hover:text-eco-dark font-medium">
+                        View All Communities
+                    </button>
+                </div>
+
+                <!-- Trending Topics -->
+                <div class="bg-white rounded-lg border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-800 mb-4">Trending Topics</h3>
+                    <div class="space-y-2">
+                        <a href="#" class="block text-sm text-gray-600 hover:text-eco-green transition-colors">#ClimateAction</a>
+                        <a href="#" class="block text-sm text-gray-600 hover:text-eco-green transition-colors">#SolarPower</a>
+                        <a href="#" class="block text-sm text-gray-600 hover:text-eco-green transition-colors">#ZeroWaste</a>
+                        <a href="#" class="block text-sm text-gray-600 hover:text-eco-green transition-colors">#ElectricVehicles</a>
+                        <a href="#" class="block text-sm text-gray-600 hover:text-eco-green transition-colors">#UrbanGardening</a>
+                    </div>
+                </div>
+
+                <!-- Eco Tips -->
+                <div class="bg-gradient-to-br from-eco-green to-eco-light rounded-lg p-4 text-white">
+                    <h3 class="font-semibold mb-2">Daily Eco Tip</h3>
+                    <p class="text-sm text-green-50 mb-3">
+                        Replace disposable water bottles with a reusable one. You'll save money and reduce plastic waste!
+                    </p>
+                    <button class="text-xs bg-white bg-opacity-20 px-3 py-1 rounded-full hover:bg-opacity-30 transition-colors">
+                        Share Tip
+                    </button>
+                </div>
+            </aside>
+            <!-- @END_COMPONENT: RightSidebar -->
+        </div>
+    </div>
+
+    <script>
+        // TODO: Implement business logic, API calls, or state management
+        (function() {
+            // @STATE: sidebarCollapsed:boolean = false
+            // @STATE: activeSection:string = 'community'
+            // @STATE: activeTab:string = 'people'
+
+            // Sidebar toggle functionality
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const leftSidebar = document.getElementById('leftSidebar');
+            let sidebarCollapsed = false;
+
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebarCollapsed = !sidebarCollapsed;
+                    if (sidebarCollapsed) {
+                        leftSidebar.style.marginLeft = '-320px';
+                    } else {
+                        leftSidebar.style.marginLeft = '0';
+                    }
+                });
+            }
+
+            // Collapsible sections functionality
+            window.toggleSection = function(sectionName) {
+                const content = document.getElementById(sectionName + 'Content');
+                const icon = document.getElementById(sectionName + 'Icon');
+                
+                if (content && icon) {
+                    const isVisible = content.style.display !== 'none';
+                    content.style.display = isVisible ? 'none' : 'block';
+                    icon.style.transform = isVisible ? 'rotate(-90deg)' : 'rotate(0deg)';
+                }
+            };
+
+            // Smooth animations for interactions
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add hover effects to vote buttons
+                const voteButtons = document.querySelectorAll('.vote-btn');
+                voteButtons.forEach(button => {
+                    button.addEventListener('mouseenter', function() {
+                        this.style.transform = 'scale(1.05)';
+                    });
+                    button.addEventListener('mouseleave', function() {
+                        this.style.transform = 'scale(1)';
+                    });
+                });
+            });
+
+            // @FUNCTIONALITY: This platform should implement real-time voting, commenting, and community features using React state management
+        })();
+    </script>
+</body>
+</html>

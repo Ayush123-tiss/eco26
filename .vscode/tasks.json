@@ -1,0 +1,204 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Install deps",
+            "type": "shell",
+            "command": "npm",
+            "args": ["install"],
+            "group": "build",
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Start dev server",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "dev"],
+            "group": "build",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+        {
+            "label": "Start server only",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "dev:server"],
+            "group": "build",
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "Start client only", 
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "dev:client"],
+            "group": "build",
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "Lint",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "lint"],
+            "group": "test",
+            "problemMatcher": ["$eslint-stylish"]
+        },
+        {
+            "label": "Lint and Fix",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "lint:fix"],
+            "group": "test",
+            "problemMatcher": ["$eslint-stylish"]
+        },
+        {
+            "label": "Format Code",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "format"],
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Type Check",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "type-check"],
+            "group": "test",
+            "problemMatcher": ["$tsc"]
+        },
+        {
+            "label": "Open Navigation Demo",
+            "type": "shell",
+            "command": "start",
+            "args": ["http://localhost:5173/navigation"],
+            "group": "build",
+            "presentation": {
+                "echo": false,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "dependsOn": "Start dev server",
+            "problemMatcher": []
+        },
+        {
+            "label": "Open Theme Demo",
+            "type": "shell",
+            "command": "start",
+            "args": ["http://localhost:5173/theme"],
+            "group": "build",
+            "presentation": {
+                "echo": false,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "dependsOn": "Start dev server",
+            "problemMatcher": []
+        },
+        {
+            "label": "Open Accessibility Demo",
+            "type": "shell",
+            "command": "start",
+            "args": ["http://localhost:5173/accessibility"],
+            "group": "build",
+            "presentation": {
+                "echo": false,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "dependsOn": "Start dev server",
+            "problemMatcher": []
+        },
+        {
+            "label": "Open All Demos",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "start http://localhost:5173/theme && timeout 1 && start http://localhost:5173/navigation && timeout 1 && start http://localhost:5173/accessibility"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": false,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "dependsOn": "Start dev server",
+            "problemMatcher": []
+        },
+        {
+            "label": "Open Bundle Optimization Demo",
+            "type": "shell",
+            "command": "start",
+            "args": ["http://localhost:5173/bundle-optimization"],
+            "group": "build",
+            "presentation": {
+                "echo": false,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "dependsOn": "Start dev server",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build and Analyze Bundle",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "build:analyze"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Check Bundle Size",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "size-check"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            },
+            "dependsOn": "Build and Analyze Bundle",
+            "problemMatcher": []
+        }
+    ]
+}

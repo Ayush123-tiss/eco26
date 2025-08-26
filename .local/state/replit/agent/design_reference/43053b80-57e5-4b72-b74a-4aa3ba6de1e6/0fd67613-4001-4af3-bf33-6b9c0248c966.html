@@ -1,0 +1,663 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoBingle - Eco People Community</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'eco-green': '#10B981',
+                        'eco-light-green': '#6EE7B7',
+                        'eco-yellow': '#FDE047',
+                        'eco-blue': '#3B82F6',
+                        'eco-bg': '#F9FAFB'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-eco-bg font-inter text-gray-700 min-h-screen">
+    <!-- @COMPONENT: Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo Section -->
+                <div class="flex items-center space-x-8">
+                    <div class="flex items-center">
+                        <i class="fas fa-leaf text-eco-green text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-gray-800">EcoBingle</span>
+                    </div>
+                    
+                    <!-- Main Navigation Toggle Buttons -->
+                    <div class="hidden md:flex items-center space-x-2">
+                        <button data-event="click:switchToEcoPeople" class="px-4 py-2 rounded-lg bg-eco-green text-white font-medium transition-colors duration-200 hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-eco-green focus:ring-offset-2" aria-label="Switch to Eco People section">
+                            Eco People
+                        </button>
+                        <button data-event="click:switchToEcoProducts" class="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium transition-colors duration-200 hover:bg-eco-blue hover:text-white focus:outline-none focus:ring-2 focus:ring-eco-blue focus:ring-offset-2" aria-label="Switch to Eco Products section">
+                            Eco Products
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="flex-1 max-w-lg mx-8 hidden lg:block">
+                    <div class="relative">
+                        <input type="text" placeholder="Search EcoBingle..." class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-eco-green focus:border-transparent" data-mock="true">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Right Side Actions -->
+                <div class="flex items-center space-x-4">
+                    <button data-event="click:openNotifications" class="p-2 text-gray-600 hover:text-eco-green transition-colors duration-200 relative" aria-label="View notifications">
+                        <i class="fas fa-bell text-lg"></i>
+                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" data-bind="notificationCount">3</span>
+                    </button>
+                    <button data-event="click:signIn" class="px-4 py-2 border border-eco-green text-eco-green rounded-lg font-medium transition-colors duration-200 hover:bg-eco-green hover:text-white focus:outline-none focus:ring-2 focus:ring-eco-green focus:ring-offset-2">
+                        Sign In
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- @END_COMPONENT: Header -->
+
+    <!-- @COMPONENT: SubNavigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-16 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-center py-3">
+                <div class="flex items-center space-x-0 bg-gray-100 rounded-lg p-1">
+                    <button id="communityTab" data-event="click:switchToCommunity" class="px-6 py-2 rounded-md font-medium transition-all duration-200 bg-eco-green text-white shadow-sm" aria-label="View Community posts">
+                        Community
+                    </button>
+                    <button id="blogTab" data-event="click:switchToBlog" class="px-6 py-2 rounded-md font-medium transition-all duration-200 text-gray-600 hover:text-gray-800 hover:bg-eco-light-green hover:bg-opacity-30" aria-label="View Blog posts">
+                        Blog
+                    </button>
+                    <button id="newsTab" data-event="click:switchToNews" class="px-6 py-2 rounded-md font-medium transition-all duration-200 text-gray-600 hover:text-gray-800 hover:bg-eco-yellow hover:bg-opacity-30" aria-label="View News posts">
+                        News
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- @END_COMPONENT: SubNavigation -->
+
+    <!-- @COMPONENT: MainContainer -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex gap-6">
+            <!-- @COMPONENT: LeftSidebar -->
+            <aside id="leftSidebar" class="w-80 flex-shrink-0 transition-all duration-300 ease-in-out">
+                <div class="space-y-4">
+                    <!-- Mobile Toggle Button -->
+                    <button id="sidebarToggle" data-event="click:toggleSidebar" class="lg:hidden w-full flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors duration-200">
+                        <span class="font-medium text-gray-700">Menu</span>
+                        <i class="fas fa-bars text-gray-600"></i>
+                    </button>
+
+                    <!-- Eco Topics Section -->
+                    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                        <button data-event="click:toggleEcoTopics" class="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors duration-200" aria-expanded="true" aria-controls="ecoTopicsContent">
+                            <h3 class="font-semibold text-gray-800 uppercase tracking-wide text-sm">ECO TOPICS</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-200"></i>
+                        </button>
+                        <div id="ecoTopicsContent" class="border-t border-gray-200">
+                            <!-- @MAP: ecoTopics.map(topic => ( -->
+                            <a href="#" data-event="click:navigateToTopic" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-eco-green hover:bg-opacity-10 hover:text-eco-green transition-colors duration-200" data-mock="true">
+                                <i class="fas fa-seedling w-5 mr-3 text-eco-green"></i>
+                                <span>Climate Change</span>
+                            </a>
+                            <a href="#" data-event="click:navigateToTopic" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-eco-green hover:bg-opacity-10 hover:text-eco-green transition-colors duration-200" data-mock="true">
+                                <i class="fas fa-recycle w-5 mr-3 text-eco-green"></i>
+                                <span>Sustainable Living</span>
+                            </a>
+                            <a href="#" data-event="click:navigateToTopic" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-eco-green hover:bg-opacity-10 hover:text-eco-green transition-colors duration-200" data-mock="true">
+                                <i class="fas fa-solar-panel w-5 mr-3 text-eco-green"></i>
+                                <span>Renewable Energy</span>
+                            </a>
+                            <a href="#" data-event="click:navigateToTopic" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-eco-green hover:bg-opacity-10 hover:text-eco-green transition-colors duration-200" data-mock="true">
+                                <i class="fas fa-leaf w-5 mr-3 text-eco-green"></i>
+                                <span>Green Technology</span>
+                            </a>
+                            <!-- @END_MAP )) -->
+                        </div>
+                    </div>
+
+                    <!-- Joined Communities Section -->
+                    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                        <button data-event="click:toggleJoinedCommunities" class="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors duration-200" aria-expanded="true" aria-controls="joinedCommunitiesContent">
+                            <h3 class="font-semibold text-gray-800 uppercase tracking-wide text-sm">JOINED COMMUNITIES</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-200"></i>
+                        </button>
+                        <div id="joinedCommunitiesContent" class="border-t border-gray-200">
+                            <!-- @MAP: joinedCommunities.map(community => ( -->
+                            <a href="#" data-event="click:navigateToCommunity" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-eco-green hover:bg-opacity-10 hover:text-eco-green transition-colors duration-200" data-mock="true">
+                                <div class="w-6 h-6 bg-eco-green rounded-full flex items-center justify-center mr-3">
+                                    <span class="text-white text-xs font-bold">ZW</span>
+                                </div>
+                                <span>r/ZeroWaste</span>
+                            </a>
+                            <a href="#" data-event="click:navigateToCommunity" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-eco-green hover:bg-opacity-10 hover:text-eco-green transition-colors duration-200" data-mock="true">
+                                <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-3">
+                                    <span class="text-white text-xs font-bold">SL</span>
+                                </div>
+                                <span>r/SustainableLiving</span>
+                            </a>
+                            <a href="#" data-event="click:navigateToCommunity" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-eco-green hover:bg-opacity-10 hover:text-eco-green transition-colors duration-200" data-mock="true">
+                                <div class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center mr-3">
+                                    <span class="text-white text-xs font-bold">EF</span>
+                                </div>
+                                <span>r/EcoFriendly</span>
+                            </a>
+                            <!-- @END_MAP )) -->
+                        </div>
+                    </div>
+
+                    <!-- Resources Section -->
+                    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                        <button data-event="click:toggleResources" class="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors duration-200" aria-expanded="false" aria-controls="resourcesContent">
+                            <h3 class="font-semibold text-gray-800 uppercase tracking-wide text-sm">RESOURCES</h3>
+                            <i class="fas fa-chevron-right text-gray-500 transition-transform duration-200"></i>
+                        </button>
+                        <div id="resourcesContent" class="border-t border-gray-200 hidden">
+                            <!-- @MAP: resources.map(resource => ( -->
+                            <a href="#" data-event="click:navigateToResource" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-eco-green hover:bg-opacity-10 hover:text-eco-green transition-colors duration-200" data-mock="true">
+                                <i class="fas fa-book w-5 mr-3 text-eco-green"></i>
+                                <span>Eco Guidelines</span>
+                            </a>
+                            <a href="#" data-event="click:navigateToResource" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-eco-green hover:bg-opacity-10 hover:text-eco-green transition-colors duration-200" data-mock="true">
+                                <i class="fas fa-question-circle w-5 mr-3 text-eco-green"></i>
+                                <span>Help Center</span>
+                            </a>
+                            <!-- @END_MAP )) -->
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <!-- @END_COMPONENT: LeftSidebar -->
+
+            <!-- @COMPONENT: MainContent -->
+            <main class="flex-1 max-w-3xl">
+                <!-- Create Post Button -->
+                <div class="bg-white rounded-lg border border-gray-200 p-4 mb-6">
+                    <button data-event="click:createPost" class="w-full flex items-center justify-center space-x-2 bg-eco-green text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-eco-green focus:ring-offset-2" data-implementation="Should open create post modal">
+                        <i class="fas fa-plus"></i>
+                        <span>Create Post</span>
+                    </button>
+                </div>
+
+                <!-- Sort Options -->
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-600">Sort by:</span>
+                        <select class="border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-eco-green focus:border-transparent" data-mock="true">
+                            <option>Hot</option>
+                            <option>New</option>
+                            <option>Top</option>
+                            <option>Rising</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button data-event="click:toggleView" class="p-2 text-gray-600 hover:text-eco-green transition-colors duration-200" aria-label="Toggle view">
+                            <i class="fas fa-th-list"></i>
+                        </button>
+                        <button data-event="click:toggleView" class="p-2 text-gray-600 hover:text-eco-green transition-colors duration-200" aria-label="Toggle view">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Discussion Threads -->
+                <div class="space-y-4" id="discussionThreads">
+                    <!-- @MAP: discussionThreads.map(thread => ( -->
+                    <!-- Thread 1 -->
+                    <article class="bg-white rounded-lg border border-gray-200 hover:border-gray-300 transition-colors duration-200 overflow-hidden">
+                        <div class="flex">
+                            <!-- Voting Section -->
+                            <div class="flex flex-col items-center justify-start p-4 bg-gray-50 border-r border-gray-200">
+                                <button data-event="click:upvote" class="p-1 text-gray-500 hover:text-eco-green transition-colors duration-200 focus:outline-none" aria-label="Upvote post">
+                                    <i class="fas fa-chevron-up text-lg"></i>
+                                </button>
+                                <span class="text-sm font-medium text-gray-700 my-1" data-bind="thread.voteCount">127</span>
+                                <button data-event="click:downvote" class="p-1 text-gray-500 hover:text-red-500 transition-colors duration-200 focus:outline-none" aria-label="Downvote post">
+                                    <i class="fas fa-chevron-down text-lg"></i>
+                                </button>
+                            </div>
+
+                            <!-- Content Section -->
+                            <div class="flex-1 p-4">
+                                <div class="flex items-center space-x-2 text-xs text-gray-500 mb-2">
+                                    <span class="font-medium text-eco-green" data-bind="thread.community">r/ZeroWaste</span>
+                                    <span>•</span>
+                                    <span>Posted by</span>
+                                    <span class="font-medium" data-bind="thread.author">u/eco_warrior</span>
+                                    <span>•</span>
+                                    <span data-bind="thread.timestamp">3 hours ago</span>
+                                </div>
+                                
+                                <h2 class="text-lg font-semibold text-gray-900 mb-3 hover:text-eco-green transition-colors duration-200 cursor-pointer" data-event="click:openThread" data-mock="true">
+                                    How I reduced my household waste by 90% in 6 months
+                                </h2>
+                                
+                                <p class="text-gray-700 text-sm mb-4 line-clamp-3" data-mock="true">
+                                    I wanted to share my journey of drastically reducing waste in my home. It started with simple changes like using reusable bags and composting, but evolved into a complete lifestyle transformation...
+                                </p>
+
+                                <div class="flex items-center space-x-4 text-xs text-gray-500">
+                                    <button data-event="click:openComments" class="flex items-center space-x-1 hover:text-eco-green transition-colors duration-200">
+                                        <i class="fas fa-comment"></i>
+                                        <span data-bind="thread.commentCount">43 comments</span>
+                                    </button>
+                                    <button data-event="click:sharePost" class="flex items-center space-x-1 hover:text-eco-green transition-colors duration-200">
+                                        <i class="fas fa-share"></i>
+                                        <span>Share</span>
+                                    </button>
+                                    <button data-event="click:savePost" class="flex items-center space-x-1 hover:text-eco-green transition-colors duration-200">
+                                        <i class="fas fa-bookmark"></i>
+                                        <span>Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Thread 2 -->
+                    <article class="bg-white rounded-lg border border-gray-200 hover:border-gray-300 transition-colors duration-200 overflow-hidden">
+                        <div class="flex">
+                            <div class="flex flex-col items-center justify-start p-4 bg-gray-50 border-r border-gray-200">
+                                <button data-event="click:upvote" class="p-1 text-gray-500 hover:text-eco-green transition-colors duration-200 focus:outline-none" aria-label="Upvote post">
+                                    <i class="fas fa-chevron-up text-lg"></i>
+                                </button>
+                                <span class="text-sm font-medium text-gray-700 my-1" data-bind="thread.voteCount">89</span>
+                                <button data-event="click:downvote" class="p-1 text-gray-500 hover:text-red-500 transition-colors duration-200 focus:outline-none" aria-label="Downvote post">
+                                    <i class="fas fa-chevron-down text-lg"></i>
+                                </button>
+                            </div>
+                            <div class="flex-1 p-4">
+                                <div class="flex items-center space-x-2 text-xs text-gray-500 mb-2">
+                                    <span class="font-medium text-eco-green" data-bind="thread.community">r/SustainableLiving</span>
+                                    <span>•</span>
+                                    <span>Posted by</span>
+                                    <span class="font-medium" data-bind="thread.author">u/green_thumb</span>
+                                    <span>•</span>
+                                    <span data-bind="thread.timestamp">5 hours ago</span>
+                                </div>
+                                
+                                <h2 class="text-lg font-semibold text-gray-900 mb-3 hover:text-eco-green transition-colors duration-200 cursor-pointer" data-event="click:openThread" data-mock="true">
+                                    DIY Solar Panel Installation - Complete Guide with Photos
+                                </h2>
+                                
+                                <p class="text-gray-700 text-sm mb-4 line-clamp-3" data-mock="true">
+                                    After months of research and planning, I finally installed solar panels on my roof. Here's a detailed breakdown of the process, costs, and lessons learned...
+                                </p>
+
+                                <div class="flex items-center space-x-4 text-xs text-gray-500">
+                                    <button data-event="click:openComments" class="flex items-center space-x-1 hover:text-eco-green transition-colors duration-200">
+                                        <i class="fas fa-comment"></i>
+                                        <span data-bind="thread.commentCount">67 comments</span>
+                                    </button>
+                                    <button data-event="click:sharePost" class="flex items-center space-x-1 hover:text-eco-green transition-colors duration-200">
+                                        <i class="fas fa-share"></i>
+                                        <span>Share</span>
+                                    </button>
+                                    <button data-event="click:savePost" class="flex items-center space-x-1 hover:text-eco-green transition-colors duration-200">
+                                        <i class="fas fa-bookmark"></i>
+                                        <span>Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Thread 3 -->
+                    <article class="bg-white rounded-lg border border-gray-200 hover:border-gray-300 transition-colors duration-200 overflow-hidden">
+                        <div class="flex">
+                            <div class="flex flex-col items-center justify-start p-4 bg-gray-50 border-r border-gray-200">
+                                <button data-event="click:upvote" class="p-1 text-gray-500 hover:text-eco-green transition-colors duration-200 focus:outline-none" aria-label="Upvote post">
+                                    <i class="fas fa-chevron-up text-lg"></i>
+                                </button>
+                                <span class="text-sm font-medium text-gray-700 my-1" data-bind="thread.voteCount">234</span>
+                                <button data-event="click:downvote" class="p-1 text-gray-500 hover:text-red-500 transition-colors duration-200 focus:outline-none" aria-label="Downvote post">
+                                    <i class="fas fa-chevron-down text-lg"></i>
+                                </button>
+                            </div>
+                            <div class="flex-1 p-4">
+                                <div class="flex items-center space-x-2 text-xs text-gray-500 mb-2">
+                                    <span class="font-medium text-eco-green" data-bind="thread.community">r/EcoFriendly</span>
+                                    <span>•</span>
+                                    <span>Posted by</span>
+                                    <span class="font-medium" data-bind="thread.author">u/nature_lover</span>
+                                    <span>•</span>
+                                    <span data-bind="thread.timestamp">8 hours ago</span>
+                                </div>
+                                
+                                <h2 class="text-lg font-semibold text-gray-900 mb-3 hover:text-eco-green transition-colors duration-200 cursor-pointer" data-event="click:openThread" data-mock="true">
+                                    Best Eco-Friendly Products Under $20 That Actually Work
+                                </h2>
+                                
+                                <p class="text-gray-700 text-sm mb-4 line-clamp-3" data-mock="true">
+                                    I've been testing various eco-friendly alternatives to common household items. Here's my curated list of affordable products that deliver on their promises...
+                                </p>
+
+                                <div class="flex items-center space-x-4 text-xs text-gray-500">
+                                    <button data-event="click:openComments" class="flex items-center space-x-1 hover:text-eco-green transition-colors duration-200">
+                                        <i class="fas fa-comment"></i>
+                                        <span data-bind="thread.commentCount">156 comments</span>
+                                    </button>
+                                    <button data-event="click:sharePost" class="flex items-center space-x-1 hover:text-eco-green transition-colors duration-200">
+                                        <i class="fas fa-share"></i>
+                                        <span>Share</span>
+                                    </button>
+                                    <button data-event="click:savePost" class="flex items-center space-x-1 hover:text-eco-green transition-colors duration-200">
+                                        <i class="fas fa-bookmark"></i>
+                                        <span>Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Thread 4 -->
+                    <article class="bg-white rounded-lg border border-gray-200 hover:border-gray-300 transition-colors duration-200 overflow-hidden">
+                        <div class="flex">
+                            <div class="flex flex-col items-center justify-start p-4 bg-gray-50 border-r border-gray-200">
+                                <button data-event="click:upvote" class="p-1 text-eco-green hover:text-green-700 transition-colors duration-200 focus:outline-none" aria-label="Upvote post">
+                                    <i class="fas fa-chevron-up text-lg"></i>
+                                </button>
+                                <span class="text-sm font-medium text-eco-green my-1" data-bind="thread.voteCount">45</span>
+                                <button data-event="click:downvote" class="p-1 text-gray-500 hover:text-red-500 transition-colors duration-200 focus:outline-none" aria-label="Downvote post">
+                                    <i class="fas fa-chevron-down text-lg"></i>
+                                </button>
+                            </div>
+                            <div class="flex-1 p-4">
+                                <div class="flex items-center space-x-2 text-xs text-gray-500 mb-2">
+                                    <span class="font-medium text-eco-green" data-bind="thread.community">r/ClimateAction</span>
+                                    <span>•</span>
+                                    <span>Posted by</span>
+                                    <span class="font-medium" data-bind="thread.author">u/climate_advocate</span>
+                                    <span>•</span>
+                                    <span data-bind="thread.timestamp">12 hours ago</span>
+                                </div>
+                                
+                                <h2 class="text-lg font-semibold text-gray-900 mb-3 hover:text-eco-green transition-colors duration-200 cursor-pointer" data-event="click:openThread" data-mock="true">
+                                    Local Community Garden Project - Need Volunteers!
+                                </h2>
+                                
+                                <p class="text-gray-700 text-sm mb-4 line-clamp-3" data-mock="true">
+                                    We're starting a community garden in downtown area and looking for passionate individuals to join our mission. The garden will focus on organic practices and local food production...
+                                </p>
+
+                                <div class="flex items-center space-x-4 text-xs text-gray-500">
+                                    <button data-event="click:openComments" class="flex items-center space-x-1 hover:text-eco-green transition-colors duration-200">
+                                        <i class="fas fa-comment"></i>
+                                        <span data-bind="thread.commentCount">28 comments</span>
+                                    </button>
+                                    <button data-event="click:sharePost" class="flex items-center space-x-1 hover:text-eco-green transition-colors duration-200">
+                                        <i class="fas fa-share"></i>
+                                        <span>Share</span>
+                                    </button>
+                                    <button data-event="click:savePost" class="flex items-center space-x-1 hover:text-eco-green transition-colors duration-200">
+                                        <i class="fas fa-bookmark"></i>
+                                        <span>Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- @END_MAP )) -->
+                </div>
+
+                <!-- Load More Button -->
+                <div class="mt-8 text-center">
+                    <button data-event="click:loadMore" class="px-6 py-3 bg-white border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-eco-green focus:ring-offset-2" data-implementation="Should load more discussion threads">
+                        Load More Posts
+                    </button>
+                </div>
+            </main>
+            <!-- @END_COMPONENT: MainContent -->
+
+            <!-- @COMPONENT: RightSidebar -->
+            <aside class="w-80 flex-shrink-0 hidden xl:block">
+                <div class="space-y-4">
+                    <!-- Popular Communities -->
+                    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                        <div class="bg-gradient-to-r from-eco-green to-emerald-600 p-4">
+                            <h3 class="font-semibold text-white">Popular Communities</h3>
+                        </div>
+                        <div class="p-4">
+                            <!-- @MAP: popularCommunities.map(community => ( -->
+                            <div class="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-eco-green rounded-full flex items-center justify-center">
+                                        <span class="text-white text-xs font-bold" data-bind="community.initials">ZW</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900" data-bind="community.name">r/ZeroWaste</p>
+                                        <p class="text-xs text-gray-500" data-bind="community.memberCount">1.2M members</p>
+                                    </div>
+                                </div>
+                                <button data-event="click:joinCommunity" class="px-3 py-1 text-xs font-medium text-eco-green border border-eco-green rounded-full hover:bg-eco-green hover:text-white transition-colors duration-200" data-implementation="Should join/leave community">
+                                    Join
+                                </button>
+                            </div>
+                            
+                            <div class="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-xs font-bold" data-bind="community.initials">SL</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900" data-bind="community.name">r/SustainableLiving</p>
+                                        <p class="text-xs text-gray-500" data-bind="community.memberCount">890K members</p>
+                                    </div>
+                                </div>
+                                <button data-event="click:joinCommunity" class="px-3 py-1 text-xs font-medium bg-eco-green text-white rounded-full hover:bg-emerald-600 transition-colors duration-200" data-implementation="Should join/leave community">
+                                    Joined
+                                </button>
+                            </div>
+                            
+                            <div class="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-xs font-bold" data-bind="community.initials">EF</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900" data-bind="community.name">r/EcoFriendly</p>
+                                        <p class="text-xs text-gray-500" data-bind="community.memberCount">756K members</p>
+                                    </div>
+                                </div>
+                                <button data-event="click:joinCommunity" class="px-3 py-1 text-xs font-medium text-eco-green border border-eco-green rounded-full hover:bg-eco-green hover:text-white transition-colors duration-200" data-implementation="Should join/leave community">
+                                    Join
+                                </button>
+                            </div>
+                            
+                            <div class="flex items-center justify-between py-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-xs font-bold" data-bind="community.initials">RE</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900" data-bind="community.name">r/RenewableEnergy</p>
+                                        <p class="text-xs text-gray-500" data-bind="community.memberCount">623K members</p>
+                                    </div>
+                                </div>
+                                <button data-event="click:joinCommunity" class="px-3 py-1 text-xs font-medium text-eco-green border border-eco-green rounded-full hover:bg-eco-green hover:text-white transition-colors duration-200" data-implementation="Should join/leave community">
+                                    Join
+                                </button>
+                            </div>
+                            <!-- @END_MAP )) -->
+                            
+                            <button data-event="click:viewAllCommunities" class="w-full mt-4 text-sm text-eco-green font-medium hover:text-emerald-600 transition-colors duration-200">
+                                View All Communities
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Trending Topics -->
+                    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                        <div class="bg-gradient-to-r from-eco-yellow to-yellow-400 p-4">
+                            <h3 class="font-semibold text-gray-800">Trending Topics</h3>
+                        </div>
+                        <div class="p-4 space-y-2">
+                            <!-- @MAP: trendingTopics.map(topic => ( -->
+                            <a href="#" data-event="click:navigateToTrending" class="block p-2 rounded-lg hover:bg-gray-50 transition-colors duration-200" data-mock="true">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-medium text-gray-900">#SolarPower</span>
+                                    <span class="text-xs text-gray-500">🔥 Hot</span>
+                                </div>
+                            </a>
+                            <a href="#" data-event="click:navigateToTrending" class="block p-2 rounded-lg hover:bg-gray-50 transition-colors duration-200" data-mock="true">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-medium text-gray-900">#PlasticFree</span>
+                                    <span class="text-xs text-gray-500">📈 Rising</span>
+                                </div>
+                            </a>
+                            <a href="#" data-event="click:navigateToTrending" class="block p-2 rounded-lg hover:bg-gray-50 transition-colors duration-200" data-mock="true">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-medium text-gray-900">#GreenBuilding</span>
+                                    <span class="text-xs text-gray-500">💪 Strong</span>
+                                </div>
+                            </a>
+                            <!-- @END_MAP )) -->
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                        <div class="p-4">
+                            <h3 class="font-semibold text-gray-800 mb-3">Quick Actions</h3>
+                            <div class="space-y-2">
+                                <button data-event="click:createPost" class="w-full flex items-center space-x-2 p-2 text-left text-sm text-gray-700 hover:bg-eco-green hover:bg-opacity-10 hover:text-eco-green rounded-lg transition-colors duration-200">
+                                    <i class="fas fa-plus w-4"></i>
+                                    <span>Create Post</span>
+                                </button>
+                                <button data-event="click:findCommunities" class="w-full flex items-center space-x-2 p-2 text-left text-sm text-gray-700 hover:bg-eco-green hover:bg-opacity-10 hover:text-eco-green rounded-lg transition-colors duration-200">
+                                    <i class="fas fa-search w-4"></i>
+                                    <span>Find Communities</span>
+                                </button>
+                                <button data-event="click:viewProfile" class="w-full flex items-center space-x-2 p-2 text-left text-sm text-gray-700 hover:bg-eco-green hover:bg-opacity-10 hover:text-eco-green rounded-lg transition-colors duration-200">
+                                    <i class="fas fa-user w-4"></i>
+                                    <span>View Profile</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <!-- @END_COMPONENT: RightSidebar -->
+        </div>
+    </div>
+    <!-- @END_COMPONENT: MainContainer -->
+
+    <script>
+        (function() {
+            // TODO: Implement business logic, API calls, and state management
+            
+            // Tab switching functionality
+            const tabs = ['communityTab', 'blogTab', 'newsTab'];
+            const colors = {
+                community: 'bg-eco-green text-white shadow-sm',
+                blog: 'bg-eco-light-green bg-opacity-50 text-gray-800 shadow-sm',
+                news: 'bg-eco-yellow bg-opacity-50 text-gray-800 shadow-sm'
+            };
+            
+            tabs.forEach(tabId => {
+                const tab = document.getElementById(tabId);
+                if (tab) {
+                    tab.addEventListener('click', function() {
+                        // Reset all tabs
+                        tabs.forEach(t => {
+                            const element = document.getElementById(t);
+                            if (element) {
+                                element.className = 'px-6 py-2 rounded-md font-medium transition-all duration-200 text-gray-600 hover:text-gray-800';
+                            }
+                        });
+                        
+                        // Activate clicked tab
+                        const activeType = tabId.replace('Tab', '');
+                        this.className = `px-6 py-2 rounded-md font-medium transition-all duration-200 ${colors[activeType]}`;
+                    });
+                }
+            });
+
+            // Sidebar collapsible sections
+            const sectionToggles = [
+                { button: 'toggleEcoTopics', content: 'ecoTopicsContent' },
+                { button: 'toggleJoinedCommunities', content: 'joinedCommunitiesContent' },
+                { button: 'toggleResources', content: 'resourcesContent' }
+            ];
+
+            sectionToggles.forEach(section => {
+                const button = document.querySelector(`[data-event="click:${section.button}"]`);
+                const content = document.getElementById(section.content);
+                const icon = button?.querySelector('i');
+                
+                if (button && content && icon) {
+                    button.addEventListener('click', function() {
+                        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                        
+                        if (isExpanded) {
+                            content.classList.add('hidden');
+                            this.setAttribute('aria-expanded', 'false');
+                            icon.className = 'fas fa-chevron-right text-gray-500 transition-transform duration-200';
+                        } else {
+                            content.classList.remove('hidden');
+                            this.setAttribute('aria-expanded', 'true');
+                            icon.className = 'fas fa-chevron-down text-gray-500 transition-transform duration-200';
+                        }
+                    });
+                }
+            });
+
+            // Responsive sidebar toggle for mobile
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const leftSidebar = document.getElementById('leftSidebar');
+            
+            if (sidebarToggle && leftSidebar) {
+                sidebarToggle.addEventListener('click', function() {
+                    leftSidebar.classList.toggle('hidden');
+                });
+            }
+
+            // Voting functionality simulation
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('[data-event="click:upvote"]') || e.target.closest('[data-event="click:downvote"]')) {
+                    e.preventDefault();
+                    const button = e.target.closest('button');
+                    const voteCount = button.parentElement.querySelector('[data-bind*="voteCount"]');
+                    const isUpvote = button.getAttribute('data-event').includes('upvote');
+                    
+                    if (voteCount) {
+                        let count = parseInt(voteCount.textContent);
+                        voteCount.textContent = isUpvote ? count + 1 : count - 1;
+                        
+                        // Visual feedback
+                        button.style.transform = 'scale(1.1)';
+                        setTimeout(() => {
+                            button.style.transform = 'scale(1)';
+                        }, 150);
+                    }
+                }
+            });
+
+            // Auto-hide mobile sidebar on larger screens
+            function handleResize() {
+                if (window.innerWidth >= 1024) {
+                    leftSidebar?.classList.remove('hidden');
+                }
+            }
+
+            window.addEventListener('resize', handleResize);
+            handleResize(); // Initial check
+        })();
+    </script>
+</body>
+</html>
