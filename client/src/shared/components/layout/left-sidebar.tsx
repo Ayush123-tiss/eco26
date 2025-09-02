@@ -224,10 +224,10 @@ export default function LeftSidebar({
             <a
               href='#'
               className='flex items-center py-1 text-sm text-eco-gray-600 transition-colors hover:text-eco-green'
-              data-testid='link-recommendations'
+              data-testid='link-popular'
             >
               <Star className='mr-2 h-4 w-4 text-eco-green' />
-              Recommendations
+              Popular Posts
             </a>
           </CollapsibleContent>
         </Collapsible>

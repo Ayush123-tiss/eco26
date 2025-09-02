@@ -80,6 +80,7 @@ export const ECO_ANIMATIONS = {
 
 // Reduced motion variants for accessibility
 export const REDUCED_MOTION_CONFIG = {
-  duration: 0.01,
-  transition: { duration: 0.01 },
+  initial: { opacity: 1 },
+  animate: { opacity: 1, transition: { duration: 0.01 } },
+  exit: { opacity: 1, transition: { duration: 0.01 } },
 } as const;

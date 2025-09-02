@@ -36,7 +36,7 @@ export default function ProductsPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="w-full px-4 py-8">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -51,7 +51,7 @@ export default function ProductsPage() {
           </div>
           <h1 className="text-3xl font-bold text-gray-900">Eco Products</h1>
         </div>
-        <p className="text-gray-600 max-w-2xl mx-auto">
+        <p className="text-gray-600 text-lg px-4">
           Discover sustainable and eco-friendly products that help you live a greener lifestyle. 
           Every purchase supports environmental conservation and sustainable practices.
         </p>
@@ -155,7 +155,7 @@ export default function ProductsPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
+        className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8"
       >
         <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 text-center border border-white/50">
           <div className="text-2xl font-bold text-[#0F766E]">{products.length}</div>
@@ -209,7 +209,7 @@ export default function ProductsPage() {
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
             <AnimatePresence>
               {filteredProducts.map((product, index) => (
                 <motion.div

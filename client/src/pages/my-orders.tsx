@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useProduct } from '../contexts/ProductContext';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { Badge } from '../components/ui/badge';
-import { Separator } from '../components/ui/separator';
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
+import { Button } from '@/shared/components/ui/button';
+import { Badge } from '@/shared/components/ui/badge';
+import { Separator } from '@/shared/components/ui/separator';
 import { ArrowLeft, Package, Calendar, CreditCard, MapPin, Clock } from 'lucide-react';
 
 export default function MyOrders() {
@@ -51,9 +51,9 @@ export default function MyOrders() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
-        className="container mx-auto px-4 py-8"
+        className="w-full px-4 py-8"
       >
-        <div className="max-w-4xl mx-auto">
+        <div className="w-full">
           <Button
             variant="ghost"
             onClick={() => setSelectedOrder(null)}
@@ -187,9 +187,9 @@ export default function MyOrders() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="container mx-auto px-4 py-8"
+      className="w-full px-4 py-8"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="w-full">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -216,7 +216,7 @@ export default function MyOrders() {
             </Button>
           </motion.div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             <AnimatePresence>
               {state.orders
                 .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())

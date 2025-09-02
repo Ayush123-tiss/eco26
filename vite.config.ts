@@ -44,29 +44,18 @@ export default defineConfig(({ command, mode }) => {
         deleteOriginFile: false
       }),
       
-      // Bundle analyzer (only when ANALYZE=true)
-      shouldAnalyze && visualizer({
-        filename: 'dist/bundle-analysis.html',
-        open: true,
-        gzipSize: true,
-        brotliSize: true,
-        template: 'treemap' // 'treemap', 'sunburst', 'network'
-      }),
-
-      // PWA Configuration
+      // Basic PWA Configuration
       VitePWA({
         registerType: 'autoUpdate',
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-          cleanupOutdatedCaches: true,
-          skipWaiting: true
         },
         includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
         manifest: {
           name: 'EcoBingle - Eco-Friendly Community',
           short_name: 'EcoBingle',
           description: 'Connect with eco-conscious individuals, discover sustainable products, and build a greener community together.',
-          theme_color: '#10B981',
+          theme_color: '#0F766E',
           background_color: '#ffffff',
           display: 'standalone',
           orientation: 'portrait',
@@ -91,7 +80,7 @@ export default defineConfig(({ command, mode }) => {
           ]
         },
         devOptions: {
-          enabled: false
+          enabled: true
         }
       })
     ].filter(Boolean),
@@ -235,7 +224,7 @@ export default defineConfig(({ command, mode }) => {
     },
 
     server: {
-      port: 3000,
+      port: 5173,
       proxy: {
         '/api': {
           target: 'http://localhost:5000',

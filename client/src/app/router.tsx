@@ -2,7 +2,6 @@ import { lazy, Suspense, useState, useEffect } from 'react';
 import { Route, Switch, useLocation } from 'wouter';
 import { ErrorBoundary } from '@/shared/components/error-boundary';
 import { PageLoader, ComponentLoader } from '@/shared/components/loading-spinner';
-import { PageTransition } from '@/shared/animations';
 import MainLayout from '../components/MainLayout';
 
 // Enhanced lazy loading with retry mechanism and preloading
@@ -56,11 +55,6 @@ interface RouteConfig {
 }
 
 // Lazy load pages with enhanced error handling
-const HomePage = createLazyComponent(
-  () => import('@/features/community/pages/home-page'),
-  'HomePage'
-);
-
 const ProductsPage = createLazyComponent(
   () => import('@/features/products/pages/products-page'),
   'ProductsPage'
@@ -102,7 +96,7 @@ const ThemeDemo = createLazyComponent(
 );
 
 const BundleOptimizationDemo = createLazyComponent(
-  () => import('@/pages/bundle-optimization-demo'),
+  () => import('@/pages/bundle-optimization-demo-simple'),
   'BundleOptimizationDemo'
 );
 
@@ -114,11 +108,6 @@ const PWADemo = createLazyComponent(
 const AnimationDemo = createLazyComponent(
   () => import('@/pages/animation-demo'),
   'AnimationDemo'
-);
-
-const EcoHubsForum = createLazyComponent(
-  () => import('@/pages/ecohubs-forum'),
-  'EcoHubsForum'
 );
 
 const BlogDashboard = createLazyComponent(
@@ -156,6 +145,16 @@ const MyOrdersPage = createLazyComponent(
   'MyOrdersPage'
 );
 
+const NewsPage = createLazyComponent(
+  () => import('../pages/news'),
+  'NewsPage'
+);
+
+const CertificatesPage = createLazyComponent(
+  () => import('../pages/certificates'),
+  'CertificatesPage'
+);
+
 // Dynamic import for code splitting by features
 const ProfilePage = createLazyComponent(
   () => import('@/features/user/pages/profile-page'),
@@ -168,7 +167,7 @@ const SettingsPage = createLazyComponent(
 );
 
 const DashboardPage = createLazyComponent(
-  () => import('@/features/dashboard/pages/dashboard-page'),
+  () => import('@/features/dashboard/pages/dashboard-page-simple'),
   'DashboardPage'
 );
 
@@ -176,7 +175,7 @@ const DashboardPage = createLazyComponent(
 const routes: RouteConfig[] = [
   {
     path: '/',
-    component: HomePage,
+    component: CommunityPage,
     fallbackText: 'Loading community...',
     errorLevel: 'page',
     preload: true,
@@ -232,6 +231,35 @@ const routes: RouteConfig[] = [
     preload: false
   },
   {
+    path: '/blog',
+    component: BlogDashboard,
+    fallbackText: 'Loading blog dashboard...',
+    errorLevel: 'page',
+    preload: false
+  },
+  {
+    path: '/news',
+    component: NewsPage,
+    fallbackText: 'Loading news...',
+    errorLevel: 'page',
+    preload: false
+  },
+  {
+    path: '/certificates',
+    component: CertificatesPage,
+    fallbackText: 'Loading certificates...',
+    errorLevel: 'page',
+    preload: false
+  },
+  {
+    path: '/community/:id',
+    component: CommunityDetailPage,
+    fallbackText: 'Loading community details...',
+    errorLevel: 'page',
+    preload: false
+  },
+  // Demo routes - grouped separately for clarity
+  {
     path: '/demo',
     component: ErrorBoundaryDemo,
     fallbackText: 'Loading demo...',
@@ -242,27 +270,6 @@ const routes: RouteConfig[] = [
     path: '/accessibility',
     component: AccessibilityDemo,
     fallbackText: 'Loading accessibility demo...',
-    errorLevel: 'page',
-    preload: false
-  },
-  {
-    path: '/code-splitting',
-    component: CodeSplittingDemo,
-    fallbackText: 'Loading code splitting demo...',
-    errorLevel: 'page',
-    preload: false
-  },
-  {
-    path: '/summary',
-    component: CodeSplittingSummary,
-    fallbackText: 'Loading implementation summary...',
-    errorLevel: 'page',
-    preload: false
-  },
-  {
-    path: '/navigation',
-    component: NavigationDemo,
-    fallbackText: 'Loading navigation demo...',
     errorLevel: 'page',
     preload: false
   },
@@ -288,30 +295,9 @@ const routes: RouteConfig[] = [
     preload: false
   },
   {
-    path: '/forum',
-    component: EcoHubsForum,
-    fallbackText: 'Loading EcoHubs forum...',
-    errorLevel: 'page',
-    preload: false
-  },
-  {
-    path: '/blog',
-    component: BlogDashboard,
-    fallbackText: 'Loading blog dashboard...',
-    errorLevel: 'page',
-    preload: false
-  },
-  {
-    path: '/communities',
-    component: CommunityPage,
-    fallbackText: 'Loading communities...',
-    errorLevel: 'page',
-    preload: false
-  },
-  {
-    path: '/community/:id',
-    component: CommunityDetailPage,
-    fallbackText: 'Loading community details...',
+    path: '/navigation',
+    component: NavigationDemo,
+    fallbackText: 'Loading navigation demo...',
     errorLevel: 'page',
     preload: false
   },
@@ -319,6 +305,20 @@ const routes: RouteConfig[] = [
     path: '/animations',
     component: AnimationDemo,
     fallbackText: 'Loading animation demo...',
+    errorLevel: 'page',
+    preload: false
+  },
+  {
+    path: '/code-splitting',
+    component: CodeSplittingDemo,
+    fallbackText: 'Loading code splitting demo...',
+    errorLevel: 'page',
+    preload: false
+  },
+  {
+    path: '/summary',
+    component: CodeSplittingSummary,
+    fallbackText: 'Loading implementation summary...',
     errorLevel: 'page',
     preload: false
   }
@@ -403,11 +403,9 @@ const LazyRoute: React.FC<LazyRouteProps> = ({
           )
         }
       >
-        <PageTransition key={routePath}>
-          <MainLayout>
-            <Component />
-          </MainLayout>
-        </PageTransition>
+        <MainLayout>
+          <Component />
+        </MainLayout>
       </Suspense>
     </ErrorBoundary>
   );

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent } from '@/shared/components/ui/card';
-import { useServiceWorkerUpdate } from '@/hooks/use-service-worker-update';
-import { RefreshCw, Download, X } from 'lucide-react';
 
 interface ServiceWorkerUpdateBannerProps {
   className?: string;
@@ -11,28 +9,11 @@ interface ServiceWorkerUpdateBannerProps {
 export const ServiceWorkerUpdateBanner: React.FC<ServiceWorkerUpdateBannerProps> = ({ 
   className = '' 
 }) => {
-  const { 
-    isUpdateAvailable, 
-    isUpdateInstalling, 
-    updateServiceWorker 
-  } = useServiceWorkerUpdate();
+  // Simplified - no complex service worker management
+  return null;
+};
 
-  const [isDismissed, setIsDismissed] = React.useState(false);
-
-  // Don't show if no update available or dismissed
-  if (!isUpdateAvailable || isDismissed) {
-    return null;
-  }
-
-  const handleUpdate = async () => {
-    try {
-      await updateServiceWorker();
-    } catch (error) {
-      console.error('Update failed:', error);
-    }
-  };
-
-  const handleDismiss = () => {
+export default ServiceWorkerUpdateBanner;
     setIsDismissed(true);
   };
 

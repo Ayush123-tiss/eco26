@@ -7,24 +7,21 @@ import { RouteMonitor } from '@/shared/components/route-monitor';
 import { ThemeProvider } from '@/shared/context/theme-context';
 import { PWAInstallBanner } from '@/components/pwa/pwa-install-banner';
 import { ServiceWorkerUpdateBanner } from '@/components/pwa/service-worker-update-banner';
-import { ContentProvider } from './contexts/ContentContext';
-import { ProductProvider } from './contexts/ProductContext';
+import { Router } from 'wouter';
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <ContentProvider>
-          <ProductProvider>
-            <TooltipProvider>
-              <Toaster />
-              <PWAInstallBanner showMinimized />
-              <ServiceWorkerUpdateBanner />
-              <AppRouter />
-              <RouteMonitor />
-            </TooltipProvider>
-          </ProductProvider>
-        </ContentProvider>
+        <TooltipProvider>
+          <Router>
+            <Toaster />
+            <PWAInstallBanner showMinimized />
+            <ServiceWorkerUpdateBanner />
+            <AppRouter />
+            <RouteMonitor />
+          </Router>
+        </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

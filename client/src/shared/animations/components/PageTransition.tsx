@@ -6,7 +6,7 @@ import { REDUCED_MOTION_CONFIG } from '../animation-config';
 interface PageTransitionProps {
   children: React.ReactNode;
   className?: string;
-  key?: string | number;
+  routeKey?: string | number;
 }
 
 /**
@@ -16,7 +16,7 @@ interface PageTransitionProps {
 export const PageTransition: React.FC<PageTransitionProps> = ({ 
   children, 
   className = "",
-  key 
+  routeKey 
 }) => {
   const shouldReduceMotion = useReducedMotion();
   
@@ -25,7 +25,7 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={key}
+        key={routeKey}
         initial="initial"
         animate="animate"
         exit="exit"

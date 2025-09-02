@@ -3,6 +3,7 @@ import { Link, useLocation } from 'wouter';
 import { Button } from '@/shared/components/ui/button';
 import { ThemeToggle } from '@/shared/components/theme/theme-toggle';
 import { MobileMenu } from './mobile-menu';
+import { getMainRoutes, getPeopleRoutes, getProductRoutes } from '@/shared/config/navigation';
 
 interface NavLink {
   href: string;
@@ -27,16 +28,24 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({
   logo,
   navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/products', label: 'Products' },
-    { href: '/forum', label: 'Forum' },
-    { href: '/dashboard', label: 'Dashboard' },
-    { href: '/theme', label: 'Theme Demo' },
-    { href: '/bundle-optimization', label: 'Bundle Optimization' },
-    { href: '/pwa', label: 'PWA Demo' },
-    { href: '/navigation', label: 'Navigation' },
-    { href: '/accessibility', label: 'Accessibility' }
-  ],
+    ...getMainRoutes().map(route => ({ 
+      href: route.path, 
+      label: route.label,
+      isExternal: route.isExternal || false
+    })),
+    ...getPeopleRoutes().map(route => ({ 
+      href: route.path, 
+      label: route.label,
+      isExternal: route.isExternal || false
+    })),
+    ...getProductRoutes().map(route => ({ 
+      href: route.path, 
+      label: route.label,
+      isExternal: route.isExternal || false
+    }))
+  ].filter((link, index, self) => 
+    self.findIndex(l => l.href === link.href) === index // Remove duplicates
+  ),
   user,
   onLogin,
   onLogout,

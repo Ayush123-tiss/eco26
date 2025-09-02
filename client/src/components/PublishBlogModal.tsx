@@ -1,6 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useContent } from '../contexts/ContentContext';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface PublishBlogModalProps {
   isOpen: boolean;
@@ -12,9 +11,7 @@ export default function PublishBlogModal({ isOpen, onClose, communityId }: Publi
   const { addBlog, addCommunityBlog, state } = useContent();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [image, setImage] = useState<string | null>(null);
-  const [dragActive, setDragActive] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [imageUrl, setImageUrl] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +20,7 @@ export default function PublishBlogModal({ isOpen, onClose, communityId }: Publi
         title: title.trim(),
         content: content.trim(),
         author: state.currentUser,
-        image: image || undefined
+        image: imageUrl || undefined
       };
 
       if (communityId) {
@@ -35,7 +32,7 @@ export default function PublishBlogModal({ isOpen, onClose, communityId }: Publi
       // Reset form
       setTitle('');
       setContent('');
-      setImage(null);
+      setImageUrl('');
       onClose();
     }
   };

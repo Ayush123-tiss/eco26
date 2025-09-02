@@ -1,53 +1,75 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Card } from '@/shared/components/ui/card';
 import { Button } from '@/shared/components/ui/button';
-import { Badge } from '@/shared/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
-import { Progress } from '@/shared/components/ui/progress';
-
-interface DashboardStats {
-  totalPosts: number;
-  totalLikes: number;
-  totalFollowers: number;
-  totalViews: number;
-  weeklyGrowth: {
-    posts: number;
-    likes: number;
-    followers: number;
-    views: number;
-  };
-}
-
-interface RecentActivity {
-  id: string;
-  type: 'post' | 'like' | 'follow' | 'comment';
-  description: string;
-  timestamp: string;
-  user?: string;
-  avatar?: string;
-}
-
-interface Achievement {
-  id: string;
-  title: string;
-  description: string;
-  icon: string;
-  progress: number;
-  maxProgress: number;
-  unlocked: boolean;
-}
 
 const DashboardPage: React.FC = () => {
-  const [stats, setStats] = useState<DashboardStats | null>(null);
-  const [activities, setActivities] = useState<RecentActivity[]>([]);
-  const [achievements, setAchievements] = useState<Achievement[]>([]);
-  const [loading, setLoading] = useState(true);
+  return (
+    <div className="container mx-auto p-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
+          <p className="text-gray-600">Simple overview of your EcoBingle activity</p>
+        </div>
 
-  useEffect(() => {
-    // Simulate API calls
-    const timer = setTimeout(() => {
-      setStats({
-        totalPosts: 42,
+        {/* Simple Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <Card className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600">Total Posts</p>
+                <p className="text-3xl font-bold text-gray-900">42</p>
+              </div>
+              <div className="text-4xl">📝</div>
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600">Total Likes</p>
+                <p className="text-3xl font-bold text-gray-900">1,250</p>
+              </div>
+              <div className="text-4xl">❤️</div>
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600">Followers</p>
+                <p className="text-3xl font-bold text-gray-900">180</p>
+              </div>
+              <div className="text-4xl">👥</div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Quick Actions */}
+        <Card className="p-6">
+          <h3 className="text-xl font-semibold mb-4">Quick Actions</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Button className="h-auto p-4 flex flex-col items-center space-y-2">
+              <span className="text-2xl">📝</span>
+              <span>Create New Post</span>
+            </Button>
+            
+            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+              <span className="text-2xl">🌱</span>
+              <span>Eco Tips</span>
+            </Button>
+            
+            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+              <span className="text-2xl">👤</span>
+              <span>Edit Profile</span>
+            </Button>
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+export default DashboardPage;
         totalLikes: 1250,
         totalFollowers: 180,
         totalViews: 15000,

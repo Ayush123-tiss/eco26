@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useProduct, Product, generateProductId } from '../contexts/ProductContext';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface AddProductModalProps {
   isOpen: boolean;
@@ -9,6 +8,8 @@ interface AddProductModalProps {
 
 export default function AddProductModal({ isOpen, onClose }: AddProductModalProps) {
   const { dispatch } = useProduct();
+  const [showCertificateModal, setShowCertificateModal] = useState(false);
+  const [productTitle, setProductTitle] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -39,7 +40,7 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
       if (e.target?.result) {
         setFormData(prev => ({
           ...prev,
-          imageUrl: e.target.result as string
+          imageUrl: e.target!.result as string
         }));
       }
     };
@@ -91,6 +92,9 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
 
       dispatch({ type: 'ADD_PRODUCT', payload: newProduct });
 
+      // Store product title for certificate
+      setProductTitle(newProduct.name);
+
       // Reset form
       setFormData({
         name: '',
@@ -103,6 +107,9 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
       });
 
       onClose();
+      
+      // Show certificate modal
+      setShowCertificateModal(true);
     } catch (error) {
       console.error('Error adding product:', error);
     } finally {
@@ -350,6 +357,16 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
           </form>
         </motion.div>
       </div>
+
+      {/* Certificate Modal */}
+      {showCertificateModal && (
+        <CertificatePreviewModal
+          isOpen={showCertificateModal}
+          onClose={() => setShowCertificateModal(false)}
+          certificateType="product"
+          itemTitle={productTitle}
+        />
+      )}
     </AnimatePresence>
   );
 }

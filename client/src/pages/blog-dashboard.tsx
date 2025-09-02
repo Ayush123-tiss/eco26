@@ -8,7 +8,7 @@ export default function BlogDashboard() {
   const [isPublishModalOpen, setIsPublishModalOpen] = useState(false);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="w-full px-4 py-8">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -23,7 +23,7 @@ export default function BlogDashboard() {
           </div>
           <h1 className="text-3xl font-bold text-gray-900">EcoBingle Blog</h1>
         </div>
-        <p className="text-gray-600 max-w-2xl mx-auto">
+        <p className="text-gray-600 text-lg px-4">
           Share your eco-friendly journey, tips, and discoveries with the community. 
           Help others learn and be inspired by your sustainable living experiences.
         </p>
@@ -34,7 +34,7 @@ export default function BlogDashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="mb-8"
+        className="mb-8 max-w-4xl mx-auto"
       >
         <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-md border border-white/50">
           <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
@@ -83,6 +83,7 @@ export default function BlogDashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
+        className="max-w-6xl mx-auto"
       >
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Latest Blog Posts</h2>
